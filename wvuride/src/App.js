@@ -9,6 +9,10 @@ function App() {
       <Login />
       <MapDesign />
       </div>
+
+      <div className='create-account'>
+
+      </div>
      
     </div>
   );

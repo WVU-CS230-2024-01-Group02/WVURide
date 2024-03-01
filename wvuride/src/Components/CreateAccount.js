@@ -8,7 +8,7 @@ function CreateAccount(){
                 input,[title="email"]: {
                  color: red
                 }
-            }
+            })
         }
     }
 

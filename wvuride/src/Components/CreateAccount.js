@@ -15,8 +15,12 @@ function CreateAccount() {
         const element = document.querySelector("email")
         if (domain !== targetDomain) {
             element.style.color = 'red'
+            return
         }
-        else return;
+        else {
+            document.getElementById('CA-Form').submit()
+            return
+        };
     }
 
     return (
@@ -24,7 +28,7 @@ function CreateAccount() {
             <div title="CreateAccount">
                 <h2 title="CA-Title" className="ca-title">Please create an account.</h2>
             </div>
-            <form>
+            <form method="post" name="CA-Form" id="CA-Form">
                 <div className="form-group">
                     <label htmlFor="name">Please enter your full name:</label>
                     <input type="text" id="name" name="name" required="required" />

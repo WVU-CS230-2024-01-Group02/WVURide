@@ -6,6 +6,7 @@ function CreateAccount() {
 
     const [email, setEmail] = useState(props?.value ?? '');
 
+
     function checkForm(event) {
         event.preventDefault()
         const emailToCheck = email.value
@@ -15,6 +16,7 @@ function CreateAccount() {
         if (domain !== targetDomain) {
             element.style.color = 'red'
         }
+        else return;
     }
 
     return (

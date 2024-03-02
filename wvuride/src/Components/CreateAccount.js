@@ -1,4 +1,5 @@
-
+import React from "react"
+import "./CreateAccount.css";
 
 function CreateAccount() {
 
@@ -17,22 +18,34 @@ function CreateAccount() {
     }
 
     return (
-        <><div title="CreateAccount">
-            <h1 title="CA-Title">Please create an account.</h1>
-        </div><form id="CA-Fields">
-                <label>Please enter your full name:
-                    <input type="text" id="name" required="required" />
-                </label>
-                <label>Please enter your mix.wvu.edu email address.
-                    <input type="text" id="email" required="required" onInput={e => setInput(e.target.value)} />
-                </label>
-                <label>
-                    <input id="pfp" type="file" />
-                </label>
-                <label>Enter a bio if you'd like!
-                    <input type="textarea" id="bio" />
-                </label>
+        <div className="ca-container">
+            <div title="CreateAccount">
+                <h2 title="CA-Title" className="ca-title">Please create an account.</h2>
+            </div>
+            <form>
+                <div className="form-group">
+                    <label htmlFor="name">Please enter your full name:</label>
+                    <input type="text" id="name" name="name" required="required" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="email">Please enter your mix.wvu.edu email address.</label>
+                    <input type="text" id="email" name="email" required="required"
+                        onInput={e => setInput(e.target.value)} />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="pfp">Upload a Profile Picture:</label>
+                    <input type="file" id="pfp" name="pfp" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="bio">Enter a bio if you'd like!</label>
+                    <textarea id="bio" name="bio"></textarea>
+                </div>
                 <button type="submit" id="createAccount" onClick={checkForm}>Create Account</button>
-            </form></>
-    )
+            </form>
+        </div>
+    );
 }
+
+export default CreateAccount;

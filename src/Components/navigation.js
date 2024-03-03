@@ -9,15 +9,6 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [error, setError] = React.useState('');
 
-    // Function to handle login 
-    const handleLogin = (email, password) => {
-        if (email.endsWith("@mix.wvu.edu")) {
-            setIsLoggedIn(true);
-            setError('');
-        } else {
-            setError('Invalid username or Password');
-        }
-    };
 
     return (
         <Router>

@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import { useState } from "react";
 import "./CreateAccount.css";
 
@@ -14,10 +14,16 @@ function CreateAccount() {
         event.preventDefault()
         const domain = email.substring(email.indexOf("@") + 1)
         const targetDomain = "mix.wvu.edu"
-        const element = document.getElementById("email")
+        const element1 = document.getElementById("email")
+        const element2 = document.getElementById("password")
+        const element3 = document.getElementById("confirm")
         if (domain !== targetDomain) {
-            element.style.color = 'red'
+            element1.style.color = 'red'
             return
+        }
+        else if (confirm !== password) {
+            element2.style.color = 'red'
+            element3.style.color = 'red'
         }
         else {
             document.getElementById('CA-Form').submit()
@@ -52,7 +58,7 @@ function CreateAccount() {
 
                 <div className="form-group">
                     <label htmlFor="password"></label>
-                    <input type="password" id="password" name="password" required="required" placeholder="Password"></input>
+                    <input type="password" id="password" name="password" required="required" placeholder="Password" onInput={e => setPassword(e.target.value)}></input>
                     <div className="input-underline"></div>
                 </div>
                 <div className="form-group">

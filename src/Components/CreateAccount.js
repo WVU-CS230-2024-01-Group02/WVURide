@@ -6,6 +6,8 @@ function CreateAccount() {
 
 
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
 
 
     function checkForm(event) {
@@ -67,7 +69,7 @@ function CreateAccount() {
                     <label htmlFor="bio">Enter a bio if you'd like!</label>
                     <textarea id="bio" name="bio"></textarea>
                 </div> */}
-                <button type="submit" className="ca-btn" >Create Your Account</button> {onClick = { checkForm }}
+                <button type="submit" className="ca-btn" onClick={checkForm}>Create Your Account</button>
             </form>
             <div className="links">
                 <span>Already have an account? <a href="/login">Go back to login.</a></span>

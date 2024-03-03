@@ -14,7 +14,7 @@ function CreateAccount() {
         event.preventDefault()
         const domain = email.substring(email.indexOf("@") + 1)
         const targetDomain = "mix.wvu.edu"
-        const element = document.querySelector("email")
+        const element = document.getElementById("email")
         if (domain !== targetDomain) {
             element.style.color = 'red'
             return
@@ -22,7 +22,7 @@ function CreateAccount() {
         else {
             document.getElementById('CA-Form').submit()
             return
-        };
+        }
     }
 
     return (

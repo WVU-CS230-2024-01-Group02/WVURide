@@ -1,0 +1,92 @@
+import React from "react";
+import { useState } from "react";
+import "./CreateAccount.css";
+
+function CreateAccount() {
+
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
+
+
+    function checkForm(event) {
+        event.preventDefault()
+        const domain = email.substring(email.indexOf("@") + 1)
+        const targetDomain = "mix.wvu.edu"
+        const element1 = document.getElementById("email")
+        const element2 = document.getElementById("password")
+        const element3 = document.getElementById("confirm")
+        if (domain !== targetDomain) {
+            element1.style.color = 'red'
+            return
+        }
+        else if (confirm !== password) {
+            element2.style.color = 'red'
+            element3.style.color = 'red'
+        }
+        else {
+            document.getElementById('CA-Form').submit()
+            return
+        }
+    }
+
+    return (
+        <div className="ca-container">
+            <div title="CreateAccount" className="ca-function">
+                <h2 title="CA-Title" className="ca-title">Please create an account.</h2>
+                <div className="ca-underline"></div>
+            </div>
+            <form id='CA-Form' name='CA-Form'>
+                <div className="form-group">
+                    <label htmlFor="name"></label>
+                    <input type="text" id="name" name="name" required="required" placeholder="Full Name" />
+                    <div className="input-underline"></div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="email"></label>
+                    <input type="email" id="email" name="email" required="required" placeholder="Mix Email"
+                        onInput={e => setEmail(e.target.value)} />
+                    <div className="input-underline"></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="username"></label>
+                    <input type="text" id="username" name="username" required="required" placeholder="Username"></input>
+                    <div className="input-underline"></div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="password"></label>
+                    <input type="password" id="password" name="password" required="required" placeholder="Password" onInput={e => setPassword(e.target.value)}></input>
+                    <div className="input-underline"></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirm"></label>
+                    <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password" onInput={e => setConfirm(e.target.value)}></input>
+                    <div className="input-underline"></div>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="pfp">Upload a Profile Picture:</label>
+                    <div className="custom-pfp-wrapper">
+                        <input type="file" className="custom-pfp" name="pfp" />
+                        <label htmlFor="pfp" className="custom-pfp-label">
+                        </label>
+                    </div>
+
+                </div>
+
+                {/* <div className="form-group">
+                    <label htmlFor="bio">Enter a bio if you'd like!</label>
+                    <textarea id="bio" name="bio"></textarea>
+                </div> */}
+                <button type="submit" className="ca-btn" onClick={checkForm}>Create Your Account</button>
+            </form>
+            <div className="links">
+                <span>Already have an account? <a href="/login">Go back to login.</a></span>
+            </div>
+        </div>
+    );
+}
+
+export default CreateAccount;

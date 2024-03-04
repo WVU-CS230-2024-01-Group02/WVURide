@@ -2,3 +2,16 @@ body {
     overflow: hidden;
     color: white;
 }
+
+.blue-rect {
+    width: 110px;
+    height: 703px;
+    background-color: #05035D;
+    border: solid 5px #D6B400;
+}
+
+.home-btn {
+    width: 100%;
+    height: 100%;
+    
+}

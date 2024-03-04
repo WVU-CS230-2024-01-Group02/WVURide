@@ -8,6 +8,8 @@ function CreateAccount() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
 
 
     function checkForm(event) {
@@ -17,15 +19,64 @@ function CreateAccount() {
         const element1 = document.getElementById("email")
         const element2 = document.getElementById("password")
         const element3 = document.getElementById("confirm")
-        if (domain !== targetDomain) {
-            element1.style.color = 'red'
+        const element4 = document.getElementById("name")
+        const element5 = document.getElementById("username")
+        if (domain !== targetDomain || email == null || confirm == null || password == null || confirm !== password || name == null || username == null) {
+            var errorMsg = ""
+            if(domain !== targetDomain) {
+                element1.style.color = 'red'
+                errorMsg += "Invalid email"
+            }
+            else{
+                element1.style.color = 'black'
+            }
+            if(confirm !== password || confirm == null || password == null){
+                element2.style.color = 'red'
+                element3.style.color = 'red'
+                if(errorMsg !== ""){
+                    errorMsg += ", password"
+                }
+                else{
+                    errorMsg += "Invalid password"
+                }
+            }
+            else{
+                element2.style.color = 'black'
+                element1.style.color = 'black'
+            }
+            if(name == null){
+                element4.style.color = 'red'
+                if(errorMsg !== ""){
+                    errorMsg += ", name"
+                }
+                else{
+                    errorMsg += "Invalid name"
+                }
+            }
+            else{
+                element4.style.color = 'black'
+            }
+            if(username == null){
+                element5.style.color = 'red'
+                if(errorMsg !== ""){
+                    errorMsg += ", username"
+                }
+                else{
+                    errorMsg += "Invalid username"
+                }
+            }
+            else{
+                element5.style.color = 'black'
+            }
+            alert(errorMsg)
             return
         }
-        else if (confirm !== password) {
-            element2.style.color = 'red'
-            element3.style.color = 'red'
-        }
         else {
+            element1.style.color = 'black'
+            element2.style.color = 'black'
+            element3.style.color = 'black'
+            element4.style.color = 'black'
+            element5.style.color = 'black'
             document.getElementById('CA-Form').submit()
             return
         }
@@ -40,7 +91,8 @@ function CreateAccount() {
             <form id='CA-Form' name='CA-Form'>
                 <div className="form-group">
                     <label htmlFor="name"></label>
-                    <input type="text" id="name" name="name" required="required" placeholder="Full Name" />
+                    <input type="text" id="name" name="name" required="required" placeholder="Full Name" 
+                    onInput={e=> setName(e.target.value)}/>
                     <div className="input-underline"></div>
                 </div>
 
@@ -52,7 +104,8 @@ function CreateAccount() {
                 </div>
                 <div className="form-group">
                     <label htmlFor="username"></label>
-                    <input type="text" id="username" name="username" required="required" placeholder="Username"></input>
+                    <input type="text" id="username" name="username" required="required" placeholder="Username"
+                        onInput={(e => setUsername(e.target.value))}/>
                     <div className="input-underline"></div>
                 </div>
 

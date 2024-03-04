@@ -2,6 +2,7 @@ import './App.css';
 import Login from './Components/Login'
 import MapDesign from './Components/MapDesign';
 import CreateAccount from './Components/CreateAccount';
+import HomePage from './Components/HomePage';
 
 function App() {
   return (
@@ -11,10 +12,14 @@ function App() {
       <MapDesign />
       </div> */}
 
-      <div className='create-account'>
+      {/* <div className='create-account'>
       <CreateAccount />
       <MapDesign/>
-      </div> 
+      </div>  */}
+
+      <div className='home-page' >
+        <HomePage/>
+      </div>
      
     </div>
   );

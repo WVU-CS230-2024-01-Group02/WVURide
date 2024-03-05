@@ -3,6 +3,7 @@ import "./HomePage.css";
 
 
 function HomePage() {
+
     return (
         <div className="hp-container">
             <div className="blue-rect">

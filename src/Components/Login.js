@@ -3,7 +3,14 @@ import "./Login.css";
 
 function Login() {
 
-  
+  const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    var realUsername = 'GET THIS FROM DATABASE'
+    var realPassword = 'GET THIS FROM DATABASE TOO'
+
+    function checkLoginInfo(){
+
+    }
 
 
   return (

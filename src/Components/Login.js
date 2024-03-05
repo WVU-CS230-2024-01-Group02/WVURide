@@ -27,6 +27,7 @@ function Login() {
       else {
         passwordElement.style.color = 'black'
       }
+      alert("Invalid username or password")
       return
     }
     else {

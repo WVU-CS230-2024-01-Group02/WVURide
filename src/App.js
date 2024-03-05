@@ -12,10 +12,10 @@ function App() {
         <MapDesign />
       </div>}
 
-      {/* <div className='create-account'>
-      <CreateAccount />
-      <MapDesign/>
-      </div>  */}
+      {/*<div className='create-account'>
+        <CreateAccount />
+        <MapDesign />
+      </div>*/}
 
       {/*<div className='home-page' >
         <HomePage/>

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 // Components 
 import LoginPage from './Login.js';
-import HomePage from './HomePage';
+import HomePage from './HomePage.js';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);

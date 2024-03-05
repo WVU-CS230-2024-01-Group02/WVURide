@@ -1,16 +1,40 @@
 import React from "react";
 import "./Login.css";
+import { useState } from "react";
 
 function Login() {
 
   const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    var realUsername = 'GET THIS FROM DATABASE'
-    var realPassword = 'GET THIS FROM DATABASE TOO'
+  const [password, setPassword] = useState('')
+  var realUsername = 'GET THIS FROM DATABASE'
+  var realPassword = 'GET THIS FROM DATABASE TOO'
 
-    function checkLoginInfo(){
+  function checkLoginInfo() {
+    const usernameElement = document.getElementById('username')
+    const passwordElement = document.getElementById('password')
+    const form = document.getElementById('L-form')
 
+    if (username !== realUsername || password !== realPassword) {
+      if (username !== realUsername) {
+        usernameElement.style.color = 'red'
+      }
+      else {
+        usernameElement.style.color = 'black'
+      }
+      if (password !== realPassword) {
+        passwordElement.style.color = 'red'
+      }
+      else {
+        passwordElement.style.color = 'black'
+      }
+      return
     }
+    else {
+      passwordElement.style.color = 'black'
+      usernameElement.style.color = 'black'
+      return
+    }
+  }
 
 
   return (
@@ -21,15 +45,15 @@ function Login() {
         <form id='L-form' name='L-form'>
           <div className="form-group">
             <label htmlFor="username">
-              <input type="text" id="username" name="username" placeholder="Username" 
-              onInput={e => setUsername(e.target.value)}/>
+              <input type="text" id="username" name="username" placeholder="Username"
+                onInput={e => setUsername(e.target.value)} />
               <div className="input-underline"></div>
             </label>
           </div>
           <div className="form-group">
             <label htmlFor="password" className="creds">
-              <input type="password" id="password" name="password" placeholder="Password" 
-              onInput={e => setPassword(e.target.value)}/>
+              <input type="password" id="password" name="password" placeholder="Password"
+                onInput={e => setPassword(e.target.value)} />
               <div className="input-underline"></div>
             </label>
           </div>

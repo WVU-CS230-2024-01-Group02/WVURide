@@ -7,15 +7,15 @@ import HomePage from './Components/HomePage';
 function App() {
   return (
     <div className="App">
-      {<div className='login-page'>
+      <div className='login-page'>
         < Login />
         <MapDesign />
-      </div>}
+      </div>
 
-      {/*<div className='create-account'>
-        <CreateAccount />
-        <MapDesign />
-      </div>*/}
+      {/* <div className='create-account'>
+      <CreateAccount />
+      <MapDesign/>
+      </div>  */}
 
       {/*<div className='home-page' >
         <HomePage/>

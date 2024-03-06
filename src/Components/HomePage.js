@@ -22,7 +22,7 @@ function HomePage() {
     
     const posts = [
         {
-            text: "Anyone usually goes to beechurst? I got two classes in downtown and wanted to know if anyone is offering rides. See more...",
+            text: "Need a reliable ride to campus? I'm offering carpooling services from the nearby neighborhoods to campus every morning. Let's make commuting hassle-free! See more...",
             date: "March 4, 2024",
             time: "25min ago",
             userName: "User1"

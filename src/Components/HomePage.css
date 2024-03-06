@@ -57,7 +57,7 @@ body {
 .msg-btn {
     width: 80px;
     height: 80px;
-    background-image: url('Assets/message.png'); /* Add the path to your messaging icon */
+    background-image: url('Assets/message.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

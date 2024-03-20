@@ -33,6 +33,7 @@ function Login() {
     else {
       passwordElement.style.color = 'black'
       usernameElement.style.color = 'black'
+      window.location.href = "/home"
       return
     }
   }

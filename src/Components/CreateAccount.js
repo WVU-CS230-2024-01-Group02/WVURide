@@ -78,6 +78,7 @@ function CreateAccount() {
             element4.style.color = 'black'
             element5.style.color = 'black'
             document.getElementById('CA-Form').submit()
+            window.location.href = "/home"
             return
         }
     }

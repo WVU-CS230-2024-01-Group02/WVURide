@@ -10,7 +10,8 @@ function Login() {
   var realUsername = 'GET THIS FROM DATABASE'
   var realPassword = 'GET THIS FROM DATABASE TOO'
 
-  function checkLoginInfo() {
+  function checkLoginInfo(event) {
+    event.preventDefault()
     const usernameElement = document.getElementById('username')
     const passwordElement = document.getElementById('password')
     const form = document.getElementById('L-form')
@@ -60,7 +61,7 @@ function Login() {
               <div className="input-underline"></div>
             </label>
           </div>
-          <button type="submit" className="login-btn" onClick={checkLoginInfo}>Login</button>
+          <button type="submit" className="login-btn" onClick={checkLoginInfo()}>Login</button>
         </form>
         <div className="links">
           <span>Don't have an account?<br></br><Link to="/createaccount"><a href="/createaccount">Create Account</a></Link></span>

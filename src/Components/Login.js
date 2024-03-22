@@ -63,9 +63,16 @@ function Login() {
           <button type="submit" className="login-btn" onClick={checkLoginInfo}>Login</button>
         </form>
         <div className="links">
-          <span>Don't have an account? <button><Link to="/createaccount">Create Account</Link></button></span>
+          <span>Don't have an account?<br></br><Link to="/createaccount"><a href="/createaccount">Create Account</a></Link></span>
           <span><a href="/forgot-password">Forgot Password?</a></span>
         </div>
+      </div>
+      <div className="map-container-lg">
+        <div className="map-design-lg">
+          <div className="blue-bg-lg">
+          </div>
+        </div>
+        <div className="wvu-logo-lg"></div>
       </div>
     </div>
   );

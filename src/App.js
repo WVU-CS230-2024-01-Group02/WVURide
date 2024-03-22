@@ -1,6 +1,5 @@
 import './App.css';
 import Login from './Components/Login'
-import MapDesign from './Components/MapDesign';
 import CreateAccount from './Components/CreateAccount';
 import HomePage from './Components/HomePage';
 import {
@@ -22,10 +21,10 @@ function App() {
       </Routes>
       </BrowserRouter>
 
-      <div className='login-page'>
+      {/* <div className='login-page'>
         < Login />
         <MapDesign />
-      </div>
+      </div> */}
 
       {/* <div className='create-account'>
       <CreateAccount />

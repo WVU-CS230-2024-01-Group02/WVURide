@@ -61,7 +61,7 @@ function Login() {
               <div className="input-underline"></div>
             </label>
           </div>
-          <button type="submit" className="login-btn" onClick={checkLoginInfo()}>Login</button>
+          <button type="submit" className="login-btn" onClick={checkLoginInfo}>Login</button>
         </form>
         <div className="links">
           <span>Don't have an account? <button><Link to="/createaccount">Create Account</Link></button></span>

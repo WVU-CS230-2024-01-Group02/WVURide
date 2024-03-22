@@ -11,6 +11,7 @@ function Login() {
   var realPassword = 'GET THIS FROM DATABASE TOO'
 
   function checkLoginInfo() {
+    event.preventDefault()
     const usernameElement = document.getElementById('username')
     const passwordElement = document.getElementById('password')
     const form = document.getElementById('L-form')

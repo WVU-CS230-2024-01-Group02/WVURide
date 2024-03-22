@@ -22,7 +22,7 @@ function App() {
       </Routes>
       </BrowserRouter>
 
-      {/* <div className='login-page'>
+      <div className='login-page'>
         < Login />
         <MapDesign />
       </div>
@@ -34,7 +34,7 @@ function App() {
 
       {/*<div className='home-page' >
         <HomePage/>
-    </div>*/} 
+    </div>*/}
 
     </div >
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import "./HomePage.css";
+import { Link } from "react-router-dom";
 
 function Post({ text, date, time, userName }) {
     return (
@@ -49,7 +50,7 @@ function HomePage() {
                     <button className="profile-btn"></button>
                     <button className="home-btn"></button>
                     <button className="msg-btn"></button>
-                    <button className="out-btn"></button>
+                    <Link to="/"><button className="out-btn"></button></Link>
                 </div>
             </div>
             <div className="gmaps">

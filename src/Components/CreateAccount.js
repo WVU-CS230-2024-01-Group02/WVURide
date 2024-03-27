@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "./CreateAccount.css";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 function CreateAccount() {
 
@@ -11,6 +12,17 @@ function CreateAccount() {
     const [confirm, setConfirm] = useState('');
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
+
+    const register = () =>{
+        Axios.post("DATABASE URL GOES HERE", {
+            email       : setEmail,
+            password    : setPassword,
+            name        : setName,
+            username    : setUserame,    
+        }).then(response => {
+            console.log(response);
+        });
+    };
 
 
     function checkForm(event) {

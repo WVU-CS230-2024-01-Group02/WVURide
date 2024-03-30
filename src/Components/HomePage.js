@@ -19,8 +19,8 @@ function Post({ text, date, time, userName }) {
 }
 
 
-function HomePage() {
-    
+function HomePage(props) {
+
     const posts = [
         {
             text: "Need a reliable ride to campus? I'm offering carpooling services from the nearby neighborhoods to campus every morning. Let's make commuting hassle-free! See more...",
@@ -33,14 +33,14 @@ function HomePage() {
             date: "March 4, 2024",
             time: "1hr ago",
             userName: "User2"
-        }, 
+        },
         {
             text: "I have a parking pass for the ESB parking lot. I can pick-up/drop-off as long as you pay for gas. See more...",
             date: "March 4, 2024",
             time: "7hr ago",
             userName: "User3"
         }
-       
+
     ];
 
     return (
@@ -63,10 +63,10 @@ function HomePage() {
             </div>
             <div className="post-container">
                 <div className="title-container">
-                <div className="post-title">Posts</div>
-                <div className="post-underline"></div>
+                    <div className="post-title">Posts</div>
+                    <div className="post-underline"></div>
                 </div>
-               
+
                 <ul className="post-list">
                     {posts.map((post, index) => (
                         <Post

@@ -3,32 +3,57 @@ import "./Login.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
+
+  con = props.DB
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  var realUsername = 'GET THIS FROM DATABASE'
-  var realPassword = 'GET THIS FROM DATABASE TOO'
+
+  /*const [correctLogin, setCL] = useState([])
+
+  const url = require("url")
+  const queryParams = {
+    limit: 1,
+    dbUsername: username,
+  };
+  const params = new url.URLSearchParams(queryParams);
+  console.log(params);
+
+  useEffect(() => {
+    axios.get('DATABASE URL/?${params}')
+        .then(response => {
+            setCL(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+  }, []);*/
 
   function checkLoginInfo(event) {
     event.preventDefault()
+    var realPassword = 'GET THIS FROM DATABASE TOO'
+
     const usernameElement = document.getElementById('username')
     const passwordElement = document.getElementById('password')
     const form = document.getElementById('L-form')
 
-    if (username !== realUsername || password !== realPassword) {
-      if (username !== realUsername) {
-        usernameElement.style.color = 'red'
-      }
-      else {
-        usernameElement.style.color = 'black'
-      }
-      if (password !== realPassword) {
-        passwordElement.style.color = 'red'
-      }
-      else {
-        passwordElement.style.color = 'black'
-      }
+    con.connect(function (err) {
+      if (err) throw err;
+      var sql = "SELECT " + username + " FROM users";
+      con.query(sql, function (err, result, fields) {
+        if (err) {
+          usernameElement.style.color = 'red'
+          passwordElement.style.color = 'red'
+          alert("Username or password is incorrect")
+        }
+        realPassword = result[0].dbPassword;
+      });
+    });
+
+    if (password !== realPassword) {
+      passwordElement.style.color = 'red'
+      usernameElement.style.color = 'red'
       alert("Invalid username or password")
       return
     }

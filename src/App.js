@@ -13,20 +13,13 @@ import mysql from "mysql";
 function App() {
   /*const mysql = require('mysql')*/
 
-  const db = mysql.createConnection({
-    user: 'admin',
-    host: 'wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com',
-    password: 'password',
-    database: 'metadata',
-  })
-
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login DB={db} />} />
-          <Route path="/createaccount" element={<CreateAccount DB={db} />} />
-          <Route path="/home" element={<HomePage DB={db} />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/createaccount" element={<CreateAccount />} />
+          <Route path="/home" element={<HomePage />} />
 
         </Routes>
       </BrowserRouter>

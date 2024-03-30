@@ -38,19 +38,6 @@ function Login(props) {
     const passwordElement = document.getElementById('password')
     const form = document.getElementById('L-form')
 
-    con.connect(function (err) {
-      if (err) throw err;
-      var sql = "SELECT " + username + " FROM users";
-      con.query(sql, function (err, result, fields) {
-        if (err) {
-          usernameElement.style.color = 'red'
-          passwordElement.style.color = 'red'
-          alert("Username or password is incorrect")
-        }
-        realPassword = result[0].dbPassword;
-      });
-    });
-
     if (password !== realPassword) {
       passwordElement.style.color = 'red'
       usernameElement.style.color = 'red'

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function Login(props) {
 
-  con = props.DB
+  const con = props.DB
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')

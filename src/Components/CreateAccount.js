@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import "./CreateAccount.css";
 import { Link } from "react-router-dom";
-import Axios from "axios";
 
 function CreateAccount(props) {
 

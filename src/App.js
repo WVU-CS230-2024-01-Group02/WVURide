@@ -7,16 +7,17 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import mysql from "mysql";
 
 
 function App() {
-  const mysql = require('mysql')
+  /*const mysql = require('mysql')*/
 
   const db = mysql.createConnection({
-    user: 'root',
-    host: 'localhost',
+    user: 'admin',
+    host: 'wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com',
     password: 'password',
-    database: 'loginSystem',
+    database: 'metadata',
   })
 
   return (

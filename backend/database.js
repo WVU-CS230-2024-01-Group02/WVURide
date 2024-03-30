@@ -1,9 +1,11 @@
 const express = require('express')
 const mysql = require('mysql')
+const cors = require('cors')
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 const client = mysql.createConnection({
     user: 'admin',
@@ -13,7 +15,7 @@ const client = mysql.createConnection({
 
 app.get('/sql', () => {
 
-    const db = client.connect(function (err) {
+    client.connect(function (err) {
         if (err) {
             console.log(err)
             return
@@ -38,11 +40,12 @@ app.post("/register", (req, res) => {
             `INSERT INTO userInfo (username, password, email, fullName) VALUES ( ${req.body.username}, ${req.body.password},  ${req.body.email}, ${req.body.fullName})`,
             (err, result) => {
                 console.log(err);
+                console.log(result);
             }
         );
     })
     client.end()
-    res.status(200)
+    res.status(200).send('successful')
 })
 
 app.post("/checkUsername", (req, res) => {

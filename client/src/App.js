@@ -7,7 +7,6 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import mysql from "mysql";
 
 
 function App() {

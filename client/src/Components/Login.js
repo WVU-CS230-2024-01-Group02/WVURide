@@ -2,6 +2,7 @@ import React from "react";
 import "./Login.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 
 function Login(props) {
 
@@ -14,7 +15,7 @@ function Login(props) {
   async function checkLoginInfo(event) {
     event.preventDefault()
 
-    const response = await axios.post("http:wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com/checkUsername", {
+    const response = await axios.post("https://wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com/checkUsername", {
       username: username,
     }).then(response => {
       return response

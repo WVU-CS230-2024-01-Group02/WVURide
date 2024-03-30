@@ -2,9 +2,9 @@ import React from "react";
 import { useState } from "react";
 import "./CreateAccount.css";
 import { Link } from "react-router-dom";
+import 'axios';
 
 function CreateAccount(props) {
-
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,19 +12,8 @@ function CreateAccount(props) {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
 
-    /*const register = () =>{
-        Axios.post("DATABASE URL GOES HERE", {
-            email       : setEmail,
-            password    : setPassword,
-            name        : setName,
-            username    : setUserame,    
-        }).then(response => {
-            console.log(response);
-        });
-    };*/
 
-
-    function checkForm(event) {
+    async function checkForm(event) {
         event.preventDefault()
         const domain = email.substring(email.indexOf("@") + 1)
         const targetDomain = "mix.wvu.edu"
@@ -89,7 +78,14 @@ function CreateAccount(props) {
             element3.style.color = 'black'
             element4.style.color = 'black'
             element5.style.color = 'black'
-            document.getElementById('CA-Form').submit()
+            const response = await axios.post("http:wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com/register", {
+                email: email,
+                password: password,
+                name: name,
+                username: username,
+            }).then(response => {
+                return response;
+            });
             window.location.href = "/home"
             return
         }

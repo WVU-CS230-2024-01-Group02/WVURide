@@ -10,29 +10,24 @@ function Login(props) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  /*const [correctLogin, setCL] = useState([])
 
-  const url = require("url")
-  const queryParams = {
-    limit: 1,
-    dbUsername: username,
-  };
-  const params = new url.URLSearchParams(queryParams);
-  console.log(params);
-
-  useEffect(() => {
-    axios.get('DATABASE URL/?${params}')
-        .then(response => {
-            setCL(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-  }, []);*/
-
-  function checkLoginInfo(event) {
+  async function checkLoginInfo(event) {
     event.preventDefault()
-    var realPassword = 'GET THIS FROM DATABASE TOO'
+
+    const response = await axios.post("http:wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com/checkUsername", {
+      username: username,
+    }).then(response => {
+      return response
+    });
+
+    if (response.data = null) {
+      passwordElement.style.color = 'red'
+      usernameElement.style.color = 'red'
+      alert("Invalid username or password")
+      return
+    }
+
+    var realPassword = response.data.password
 
     const usernameElement = document.getElementById('username')
     const passwordElement = document.getElementById('password')

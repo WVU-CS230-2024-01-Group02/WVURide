@@ -11,6 +11,7 @@ const client = mysql.createConnection({
     user: 'admin',
     host: 'wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com',
     password: 'password',
+    database: 'metadata'
 })
 
 app.get('/sql', () => {

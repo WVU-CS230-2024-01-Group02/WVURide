@@ -12,20 +12,11 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-<<<<<<< HEAD
-const client = mysql.createConnection({
-    user: 'admin',
-    host: 'wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com',
-    password: 'password',
-    database: 'metadata'
-=======
-
 const db = mysql.createConnection({
     user: "admin",
     host: "wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com",
     password: "password",
     database: "metadata"
->>>>>>> 5b45423de145175d7acf7026942fd116f47b523c
 })
 
 db.connect((err) => {

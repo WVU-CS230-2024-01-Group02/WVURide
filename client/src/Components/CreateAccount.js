@@ -78,10 +78,10 @@ function CreateAccount(props) {
             element3.style.color = 'black'
             element4.style.color = 'black'
             element5.style.color = 'black'
-            const response = await axios.post("https://wvuride-db1.c9w2o8komlq5.us-east-2.rds.amazonaws.com/register", {
+            const response = await axios.post("http://localhost:8800/users", {
                 email: email,
                 password: password,
-                name: name,
+                fullName: name,
                 username: username,
             }).then(response => {
                 return response;

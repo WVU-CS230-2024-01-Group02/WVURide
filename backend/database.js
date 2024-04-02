@@ -56,7 +56,6 @@ app.post("/users", (req, res) => {
 
 app.post("/login", (req, res) => {
     const q = `SELECT * FROM userInfo WHERE username = '${req.body.username}'`
-    const value = req.username
 
     db.query(q, (err, data) =>{
         if(err) return res.json(err)
@@ -66,6 +65,24 @@ app.post("/login", (req, res) => {
 
 app.get("/login", (req, res) => {
     const q = "SELECT * FROM userInfo WHERE username = 'DizzyDigga'"
+
+    db.query(q, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/checkEmail", (req, res) => {
+    const q = `SELECT * FROM userInfo WHERE email = '${req.body.email}'`
+
+    db.query(q, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/checkEmail", (req, res) => {
+    const q = "SELECT * FROM userInfo WHERE email = 'nrg00007@mix.wvu.edu'"
 
     db.query(q, (err, data) => {
         if(err) return res.json(err)

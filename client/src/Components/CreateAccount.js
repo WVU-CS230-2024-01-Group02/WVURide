@@ -24,7 +24,7 @@ function CreateAccount(props) {
         const element5 = document.getElementById("username")
         if (domain !== targetDomain || email == null || confirm == null || password == null || confirm !== password || name == null || username == null) {
             var errorMsg = ""
-            if (domain !== targetDomain) {
+            if (domain !== targetDomain || email == null) {
                 element1.style.color = 'red'
                 errorMsg += "Invalid email"
             }
@@ -73,12 +73,66 @@ function CreateAccount(props) {
             return
         }
         else {
+            const response = await axios.post("http://localhost:8800/login", {
+            username: username,
+            }).then(response => {
+            console.log(response.status)
+            console.log(response.data)
+            return response.data
+            }).catch(error => {
+            if (error.status !== 200){
+                return null
+            }
+            });
+            console.log(response)
+            
+            const emailResponse = await axios.post("http://localhost:8800/checkEmail", {
+            email: email,
+            }).then(response => {
+            console.log(response.status)
+            console.log(response.data)
+            return response.data
+            }).catch(error => {
+            if (error.status !== 200){
+                return null
+            }
+            });
+            console.log(emailResponse)
+            
+            if(response.length != 0 || emailResponse.length != 0){
+                if(emailResponse != 0){
+                    alert("Email already in use.")
+                    element1.style.color = 'red'
+                    return
+                }
+                else{
+                    alert("Username already in use.")
+                    element5.style.color = 'red'
+                    return
+                }
+                
+                /*for(var i = 0; i < emailResponse.length; i++){
+                    if(emailResponse[i].email == email){
+                        alert("Email already in use.")
+                        element1.style.color = 'red'
+                        return
+                    }
+                }
+                for(i = 0; i < response.length; i++){
+                    if(response[i].username == username){
+                        alert("Username already in use.")
+                        element5.style.color = 'red'
+                        return
+                    }
+                }*/
+            }
+            
             element1.style.color = 'black'
             element2.style.color = 'black'
             element3.style.color = 'black'
             element4.style.color = 'black'
             element5.style.color = 'black'
-            const response = await axios.post("http://localhost:8800/users", {
+            const sendResponse = await axios.post("http://localhost:8800/users", {
                 email: email,
                 password: password,
                 fullName: name,
@@ -88,6 +142,7 @@ function CreateAccount(props) {
             });
             window.location.href = "/home"
             return
+            
         }
     }
 

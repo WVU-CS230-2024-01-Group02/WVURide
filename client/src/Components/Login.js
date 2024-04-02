@@ -15,29 +15,38 @@ function Login(props) {
   async function checkLoginInfo(event) {
     event.preventDefault()
 
-    const response = await axios.post("http://localhost:8800/checkUsername", {
-      username: username,
-    }).then(response => {
-      return response
-    });
-
-    if (response.data = null) {
-      passwordElement.style.color = 'red'
-      usernameElement.style.color = 'red'
-      alert("Invalid username or password")
-      return
-    }
-
-    var realPassword = response.data.password
-
     const usernameElement = document.getElementById('username')
     const passwordElement = document.getElementById('password')
     const form = document.getElementById('L-form')
+
+    const response = await axios.post("http://localhost:8800/login", {
+      username: username,
+    }).then(response => {
+      console.log(response.status)
+      console.log(response.data)
+      return response.data
+    }).catch(error => {
+      if (error.status !== 200){
+        return null
+      }
+    });
+
+    if (response == null || response.length == 0) {
+      passwordElement.style.color = 'red'
+      usernameElement.style.color = 'red'
+      alert("Invalid username or password")
+      console.log("null response")
+      return
+    }
+
+    var realPassword = response[0].password
+    console.log(realPassword)
 
     if (password !== realPassword) {
       passwordElement.style.color = 'red'
       usernameElement.style.color = 'red'
       alert("Invalid username or password")
+      console.log("invalid password")
       return
     }
     else {

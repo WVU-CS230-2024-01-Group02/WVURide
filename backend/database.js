@@ -54,6 +54,25 @@ app.post("/users", (req, res) => {
     })
 })
 
+app.post("/login", (req, res) => {
+    const q = `SELECT * FROM userInfo WHERE username = '${req.body.username}'`
+    const value = req.username
+
+    db.query(q, (err, data) =>{
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/login", (req, res) => {
+    const q = "SELECT * FROM userInfo WHERE username = 'DizzyDigga'"
+
+    db.query(q, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 
 
 app.listen(8800, () => {

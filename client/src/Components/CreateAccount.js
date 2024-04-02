@@ -12,6 +12,13 @@ function CreateAccount(props) {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
 
+    /*function onEmail(e){
+        const element = document.getElementById("email")
+        element.style.color = 'red'
+        setEmail(e)
+        return
+    }*/
+
 
     async function checkForm(event) {
         event.preventDefault()
@@ -22,16 +29,17 @@ function CreateAccount(props) {
         const element3 = document.getElementById("confirm")
         const element4 = document.getElementById("name")
         const element5 = document.getElementById("username")
-        if (domain !== targetDomain || email == null || confirm == null || password == null || confirm !== password || name == null || username == null) {
+        if (domain !== targetDomain || email == "" || confirm == "" || password == "" || confirm !== password || name == "" || username == "") {
             var errorMsg = ""
-            if (domain !== targetDomain || email == null) {
+            if (domain !== targetDomain || email == "") {
                 element1.style.color = 'red'
+                console.log("should be red")
                 errorMsg += "Invalid email"
             }
             else {
                 element1.style.color = 'black'
             }
-            if (confirm !== password || confirm == null || password == null) {
+            if (confirm !== password || confirm == "" || password == "") {
                 element2.style.color = 'red'
                 element3.style.color = 'red'
                 if (errorMsg !== "") {
@@ -43,9 +51,9 @@ function CreateAccount(props) {
             }
             else {
                 element2.style.color = 'black'
-                element1.style.color = 'black'
+                element3.style.color = 'black'
             }
-            if (name == null) {
+            if (name == "") {
                 element4.style.color = 'red'
                 if (errorMsg !== "") {
                     errorMsg += ", name"
@@ -57,7 +65,7 @@ function CreateAccount(props) {
             else {
                 element4.style.color = 'black'
             }
-            if (username == null) {
+            if (username == "") {
                 element5.style.color = 'red'
                 if (errorMsg !== "") {
                     errorMsg += ", username"
@@ -111,20 +119,6 @@ function CreateAccount(props) {
                     return
                 }
                 
-                /*for(var i = 0; i < emailResponse.length; i++){
-                    if(emailResponse[i].email == email){
-                        alert("Email already in use.")
-                        element1.style.color = 'red'
-                        return
-                    }
-                }
-                for(i = 0; i < response.length; i++){
-                    if(response[i].username == username){
-                        alert("Username already in use.")
-                        element5.style.color = 'red'
-                        return
-                    }
-                }*/
             }
             
             element1.style.color = 'black'

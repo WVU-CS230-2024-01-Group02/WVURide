@@ -128,7 +128,7 @@ function CreateAccount(props) {
                     <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password" onInput={e => setConfirm(e.target.value)}></input>
                     <div className="input-underline"></div>
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="pfp">Upload a Profile Picture:</label>
                     <div className="custom-pfp-wrapper">
                         <input type="file" className="custom-pfp" name="pfp" />
@@ -136,7 +136,7 @@ function CreateAccount(props) {
                         </label>
                     </div>
 
-                </div>
+                </div> */}
 
                 {/* <div className="form-group">
                     <label htmlFor="bio">Enter a bio if you'd like!</label>

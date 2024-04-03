@@ -12,6 +12,13 @@ function CreateAccount(props) {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
 
+    /*function onEmail(e){
+        const element = document.getElementById("email")
+        element.style.color = 'red'
+        setEmail(e)
+        return
+    }*/
+
 
     async function checkForm(event) {
         event.preventDefault()
@@ -22,16 +29,17 @@ function CreateAccount(props) {
         const element3 = document.getElementById("confirm")
         const element4 = document.getElementById("name")
         const element5 = document.getElementById("username")
-        if (domain !== targetDomain || email == null || confirm == null || password == null || confirm !== password || name == null || username == null) {
+        if (domain !== targetDomain || email == "" || confirm == "" || password == "" || confirm !== password || name == "" || username == "") {
             var errorMsg = ""
-            if (domain !== targetDomain) {
+            if (domain !== targetDomain || email == "") {
                 element1.style.color = 'red'
+                console.log("should be red")
                 errorMsg += "Invalid email"
             }
             else {
                 element1.style.color = 'black'
             }
-            if (confirm !== password || confirm == null || password == null) {
+            if (confirm !== password || confirm == "" || password == "") {
                 element2.style.color = 'red'
                 element3.style.color = 'red'
                 if (errorMsg !== "") {
@@ -43,9 +51,9 @@ function CreateAccount(props) {
             }
             else {
                 element2.style.color = 'black'
-                element1.style.color = 'black'
+                element3.style.color = 'black'
             }
-            if (name == null) {
+            if (name == "") {
                 element4.style.color = 'red'
                 if (errorMsg !== "") {
                     errorMsg += ", name"
@@ -57,7 +65,7 @@ function CreateAccount(props) {
             else {
                 element4.style.color = 'black'
             }
-            if (username == null) {
+            if (username == "") {
                 element5.style.color = 'red'
                 if (errorMsg !== "") {
                     errorMsg += ", username"
@@ -73,12 +81,52 @@ function CreateAccount(props) {
             return
         }
         else {
+            const response = await axios.post("http://localhost:8800/login", {
+            username: username,
+            }).then(response => {
+            console.log(response.status)
+            console.log(response.data)
+            return response.data
+            }).catch(error => {
+            if (error.status !== 200){
+                return null
+            }
+            });
+            console.log(response)
+            
+            const emailResponse = await axios.post("http://localhost:8800/checkEmail", {
+            email: email,
+            }).then(response => {
+            console.log(response.status)
+            console.log(response.data)
+            return response.data
+            }).catch(error => {
+            if (error.status !== 200){
+                return null
+            }
+            });
+            console.log(emailResponse)
+            
+            if(response.length != 0 || emailResponse.length != 0){
+                if(emailResponse != 0){
+                    alert("Email already in use.")
+                    element1.style.color = 'red'
+                    return
+                }
+                else{
+                    alert("Username already in use.")
+                    element5.style.color = 'red'
+                    return
+                }
+                
+            }
+            
             element1.style.color = 'black'
             element2.style.color = 'black'
             element3.style.color = 'black'
             element4.style.color = 'black'
             element5.style.color = 'black'
-            const response = await axios.post("http://localhost:8800/users", {
+            const sendResponse = await axios.post("http://localhost:8800/users", {
                 email: email,
                 password: password,
                 fullName: name,
@@ -88,6 +136,7 @@ function CreateAccount(props) {
             });
             window.location.href = "/home"
             return
+            
         }
     }
 

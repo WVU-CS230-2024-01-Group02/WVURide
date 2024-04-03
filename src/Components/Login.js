@@ -1,6 +1,7 @@
 import React from "react";
 import "./Login.css";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function Login() {
 
@@ -9,7 +10,8 @@ function Login() {
   var realUsername = 'GET THIS FROM DATABASE'
   var realPassword = 'GET THIS FROM DATABASE TOO'
 
-  function checkLoginInfo() {
+  function checkLoginInfo(event) {
+    event.preventDefault()
     const usernameElement = document.getElementById('username')
     const passwordElement = document.getElementById('password')
     const form = document.getElementById('L-form')
@@ -33,6 +35,7 @@ function Login() {
     else {
       passwordElement.style.color = 'black'
       usernameElement.style.color = 'black'
+      window.location.href = "/home"
       return
     }
   }
@@ -61,9 +64,16 @@ function Login() {
           <button type="submit" className="login-btn" onClick={checkLoginInfo}>Login</button>
         </form>
         <div className="links">
-          <span>Don't have an account? <br /><a href="/signup">Create Account</a></span>
+          <span>Don't have an account?<br></br><Link to="/createaccount"><a href="/createaccount">Create Account</a></Link></span>
           <span><a href="/forgot-password">Forgot Password?</a></span>
         </div>
+      </div>
+      <div className="map-container-lg">
+        <div className="map-design-lg">
+          <div className="blue-bg-lg">
+          </div>
+        </div>
+        <div className="wvu-logo-lg"></div>
       </div>
     </div>
   );

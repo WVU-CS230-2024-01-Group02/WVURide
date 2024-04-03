@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import "./CreateAccount.css";
+import { Link } from "react-router-dom";
 
 function CreateAccount() {
 
@@ -23,49 +24,49 @@ function CreateAccount() {
         const element5 = document.getElementById("username")
         if (domain !== targetDomain || email == null || confirm == null || password == null || confirm !== password || name == null || username == null) {
             var errorMsg = ""
-            if(domain !== targetDomain) {
+            if (domain !== targetDomain) {
                 element1.style.color = 'red'
                 errorMsg += "Invalid email"
             }
-            else{
+            else {
                 element1.style.color = 'black'
             }
-            if(confirm !== password || confirm == null || password == null){
+            if (confirm !== password || confirm == null || password == null) {
                 element2.style.color = 'red'
                 element3.style.color = 'red'
-                if(errorMsg !== ""){
+                if (errorMsg !== "") {
                     errorMsg += ", password"
                 }
-                else{
+                else {
                     errorMsg += "Invalid password"
                 }
             }
-            else{
+            else {
                 element2.style.color = 'black'
                 element1.style.color = 'black'
             }
-            if(name == null){
+            if (name == null) {
                 element4.style.color = 'red'
-                if(errorMsg !== ""){
+                if (errorMsg !== "") {
                     errorMsg += ", name"
                 }
-                else{
+                else {
                     errorMsg += "Invalid name"
                 }
             }
-            else{
+            else {
                 element4.style.color = 'black'
             }
-            if(username == null){
+            if (username == null) {
                 element5.style.color = 'red'
-                if(errorMsg !== ""){
+                if (errorMsg !== "") {
                     errorMsg += ", username"
                 }
-                else{
+                else {
                     errorMsg += "Invalid username"
                 }
             }
-            else{
+            else {
                 element5.style.color = 'black'
             }
             alert(errorMsg)
@@ -78,6 +79,7 @@ function CreateAccount() {
             element4.style.color = 'black'
             element5.style.color = 'black'
             document.getElementById('CA-Form').submit()
+            window.location.href = "/home"
             return
         }
     }
@@ -91,8 +93,8 @@ function CreateAccount() {
             <form id='CA-Form' name='CA-Form'>
                 <div className="form-group">
                     <label htmlFor="name"></label>
-                    <input type="text" id="name" name="name" required="required" placeholder="Full Name" 
-                    onInput={e=> setName(e.target.value)}/>
+                    <input type="text" id="name" name="name" required="required" placeholder="Full Name"
+                        onInput={e => setName(e.target.value)} />
                     <div className="input-underline"></div>
                 </div>
 
@@ -105,7 +107,7 @@ function CreateAccount() {
                 <div className="form-group">
                     <label htmlFor="username"></label>
                     <input type="text" id="username" name="username" required="required" placeholder="Username"
-                        onInput={(e => setUsername(e.target.value))}/>
+                        onInput={(e => setUsername(e.target.value))} />
                     <div className="input-underline"></div>
                 </div>
 
@@ -136,7 +138,14 @@ function CreateAccount() {
                 <button type="submit" className="ca-btn" onClick={checkForm}>Create Your Account</button>
             </form>
             <div className="links">
-                <span>Already have an account? <a href="/login">Go back to login.</a></span>
+                <span><Link to="/"><a href="/login">Go back to login.</a></Link></span>
+            </div>
+            <div className="map-container-ca">
+                <div className="map-design-ca">
+                    <div className="blue-bg-ca">
+                    </div>
+                </div>
+                <div className="wvu-logo-ca"></div>
             </div>
         </div>
     );

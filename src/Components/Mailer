@@ -1,0 +1,41 @@
+const nodemailer = require("nodemailer");
+
+
+// Contents  of the email
+const html = `
+  <h1>Account verification</h1>   
+  <p>Click this link to verify your account.</p>
+  <!-- future implementation of authentication link -->
+
+`;
+
+
+async function main() {
+  
+  nodemailer.createTransport({
+    service: 'gmail',
+    host: "smtp.gmail.com",
+    port: 587,  // Use 587 because it ise used for encrypted email
+    secure: false, // Use `true` for port 465, `false` for all other ports  / 465 is deprecated
+    auth: {
+      user: "username", //gmail username
+      pass: "password", //gmail app password
+    },
+  });
+  
+  
+  
+  
+  // send mail with defined transport object
+  const info = await transporter.sendMail({
+    from: '"WVURide" <WVURide@gmail.com>', // Our email for WVURide
+    to: "useremail@mail.com", // list of receivers
+    subject: "Account Verification", // Subject line
+    html: html, // html formatted email from above
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  
+}
+
+main().catch(console.error);

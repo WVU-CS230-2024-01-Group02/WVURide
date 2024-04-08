@@ -48,7 +48,7 @@ body {
 .ca-underline {
     position: absolute;
     left: 90px;
-    bottom: 670px;
+    bottom: 450px;
     margin-bottom: -25px;
     width: 350px;
     max-width: 100%;
@@ -94,7 +94,7 @@ input[type="email"] {
     background-color: #828282;
 }
 
-.custom-pfp-wrapper {
+/* .custom-pfp-wrapper {
     position: relative;
     width: 180px;
     height: 180px;
@@ -145,7 +145,7 @@ input[type="email"] {
 input[type="file"] {
     top: 80px;
     align-items: center;
-}
+} */
 
 
 
@@ -198,7 +198,7 @@ input[type="file"] {
     transform-origin: top left;
     position: absolute;
     right: 400px;
-    margin-top: -1400px;
+    margin-top: -1200px;
     width: 100vw;
     height: 100vw;
     background-image: url('Assets/mapdesign.png');
@@ -223,7 +223,7 @@ input[type="file"] {
 
 .wvu-logo-ca {
     position: absolute;
-    margin-top: -460px;
+    margin-top: -350px;
     right: 880px;
     width: 461px;
     height: 156px;

@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./CreateAccount.css";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import crypto from 'crypto';
 
 function CreateAccount(props) {
 
@@ -120,6 +121,11 @@ function CreateAccount(props) {
                 }
                 
             }
+
+            var hash = crypto.createHash('sha256')
+            var saltedPassword = password + 'carpool'
+            hash.update(saltedPassword)
+            var hashedPassword = hash.digest('hex')
             
             element1.style.color = 'black'
             element2.style.color = 'black'
@@ -128,7 +134,7 @@ function CreateAccount(props) {
             element5.style.color = 'black'
             const sendResponse = await axios.post("http://localhost:8800/users", {
                 email: email,
-                password: password,
+                password: hashedPassword,
                 fullName: name,
                 username: username,
             }).then(response => {

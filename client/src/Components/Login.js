@@ -3,23 +3,17 @@ import "./Login.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import crypto from 'crypto'
 
 function Login(props) {
 
   const con = props.DB
 
   const [username, setUsername] = useState('')
-  const [unhashedPassword, setPassword] = useState('')
+  const [password, setPassword] = useState('')
 
 
   async function checkLoginInfo(event) {
     event.preventDefault()
-
-    var hash = crypto.createHash('sha256')
-    var saltedPassword = unhashedPassword + 'carpool'
-    hash.update(saltedPassword)
-    var password = hash.digest('hex')
 
     const usernameElement = document.getElementById('username')
     const passwordElement = document.getElementById('password')

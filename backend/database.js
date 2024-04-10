@@ -1,6 +1,7 @@
 import express from "express";
 import mysql from "mysql";
 import cors from 'cors';
+import crypto from 'crypto';
 
 
 // const express = require('express')
@@ -41,11 +42,15 @@ app.get("/users", (req, res) => {
 
 app.post("/users", (req, res) => {
     const q = "INSERT INTO userInfo (`fullName`, `username`, `email`, `password`) VALUES (?)"
+    var hash = crypto.createHash('sha256')
+    var saltedPassword = req.body.password + 'carpool'
+    hash.update(saltedPassword)
+    var hashedPassword = hash.digest('hex')
     const values = [
         req.body.fullName,
         req.body.username,
         req.body.email,
-        req.body.password,
+        hashedPassword,
     ];
 
     db.query(q, [values], (err, data) => {
@@ -55,7 +60,12 @@ app.post("/users", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-    const q = `SELECT * FROM userInfo WHERE username = '${req.body.username}'`
+    var hash = crypto.createHash('sha256')
+    var saltedPassword = req.body.password + 'carpool'
+    hash.update(saltedPassword)
+    var hashedPassword = hash.digest('hex')
+    console.log(hashedPassword)
+    const q = `SELECT * FROM userInfo WHERE username = '${req.body.username}' AND password = '${hashedPassword}'`
 
     db.query(q, (err, data) =>{
         if(err) return res.json(err)
@@ -64,7 +74,11 @@ app.post("/login", (req, res) => {
 })
 
 app.get("/login", (req, res) => {
-    const q = "SELECT * FROM userInfo WHERE username = 'DizzyDigga'"
+    var hash = crypto.createHash('sha256')
+    var saltedPassword = 'Dixie119' + 'carpool'
+    hash.update(saltedPassword)
+    var hashedPassword = hash.digest('hex')
+    const q = `SELECT * FROM userInfo WHERE username = 'DizzyDigga1' AND password = '${hashedPassword}'`
 
     db.query(q, (err, data) => {
         if(err) return res.json(err)

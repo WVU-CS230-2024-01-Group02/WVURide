@@ -21,6 +21,7 @@ function Login(props) {
 
     const response = await axios.post("http://localhost:8800/login", {
       username: username,
+      password: password,
     }).then(response => {
       console.log(response.status)
       console.log(response.data)
@@ -30,6 +31,7 @@ function Login(props) {
         return null
       }
     });
+    console.log(response)
 
     if (response == null || response.length == 0) {
       passwordElement.style.color = 'red'
@@ -39,7 +41,7 @@ function Login(props) {
       return
     }
 
-    var realPassword = response[0].password
+    /*var realPassword = response[0].password
     console.log(realPassword)
 
     if (password !== realPassword) {
@@ -48,13 +50,12 @@ function Login(props) {
       alert("Invalid username or password")
       console.log("invalid password")
       return
-    }
-    else {
+    }*/
       passwordElement.style.color = 'black'
       usernameElement.style.color = 'black'
       window.location.href = "/home"
       return
-    }
+    
   }
 
 

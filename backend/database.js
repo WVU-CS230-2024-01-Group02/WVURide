@@ -105,7 +105,7 @@ app.get("/checkEmail", (req, res) => {
 })
 
 app.get("/retrieve5Posts", (req, res) => {
-    const q = "SELECT * FROM posts"
+    const q = "SELECT * FROM postsInfo LIMIT 5"
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)
@@ -114,7 +114,7 @@ app.get("/retrieve5Posts", (req, res) => {
 })
 
 app.post("/postAPost", (req, res) => {
-    const q = `INSERT INTO posts (postAuth, postFrom, postTo, postDesc) VALUES (${req.body.username}, ${req.body.from}, ${req.body.to}, ${req.body.desc})`
+    const q = `INSERT INTO postsInfo (postAuth, postFrom, postTo, postDesc) VALUES (${req.body.username}, ${req.body.from}, ${req.body.to}, ${req.body.desc})`
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)
@@ -123,7 +123,7 @@ app.post("/postAPost", (req, res) => {
 })
 
 app.get("/postAPost", (req, res) => {
-    const q = "INSERT INTO posts (postAuth, postFrom, postTo, postDesc) VALUES ('DizzyDigga', 'West Run', 'The Foundry', 'If anyone would like to go to church on Sunday morning I would be more than willing to take some people so we can all save on gas')"
+    const q = "INSERT INTO postsInfo (postAuth, postFrom, postTo, postDesc) VALUES ('DizzyDigga', 'West Run', 'The Foundry', 'If anyone would like to go to church on Sunday morning I would be more than willing to take some people so we can all save on gas')"
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)

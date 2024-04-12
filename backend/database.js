@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 
 app.get("/users", (req, res) => {
     const q = "SELECT * FROM userInfo";
-    db.query(q, (err, data)=>{
+    db.query(q, (err, data) => {
         if (err) return res.json(err)
         return res.json(data);
     })
@@ -54,8 +54,8 @@ app.post("/users", (req, res) => {
     ];
 
     db.query(q, [values], (err, data) => {
-        if(err) return res.json(err)
-        return res.json("User has been created") 
+        if (err) return res.json(err)
+        return res.json("User has been created")
     })
 })
 
@@ -67,8 +67,8 @@ app.post("/login", (req, res) => {
     console.log(hashedPassword)
     const q = `SELECT * FROM userInfo WHERE username = '${req.body.username}' AND password = '${hashedPassword}'`
 
-    db.query(q, (err, data) =>{
-        if(err) return res.json(err)
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
         return res.json(data)
     })
 })
@@ -81,7 +81,7 @@ app.get("/login", (req, res) => {
     const q = `SELECT * FROM userInfo WHERE username = 'DizzyDigga1' AND password = '${hashedPassword}'`
 
     db.query(q, (err, data) => {
-        if(err) return res.json(err)
+        if (err) return res.json(err)
         return res.json(data)
     })
 })
@@ -90,7 +90,7 @@ app.post("/checkEmail", (req, res) => {
     const q = `SELECT * FROM userInfo WHERE email = '${req.body.email}'`
 
     db.query(q, (err, data) => {
-        if(err) return res.json(err)
+        if (err) return res.json(err)
         return res.json(data)
     })
 })
@@ -99,7 +99,34 @@ app.get("/checkEmail", (req, res) => {
     const q = "SELECT * FROM userInfo WHERE email = 'nrg00007@mix.wvu.edu'"
 
     db.query(q, (err, data) => {
-        if(err) return res.json(err)
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/retrieve5Posts", (req, res) => {
+    const q = "SELECT * FROM posts"
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/postAPost", (req, res) => {
+    const q = `INSERT INTO posts (postAuth, postFrom, postTo, postDesc) VALUES (${req.body.username}, ${req.body.from}, ${req.body.to}, ${req.body.desc})`
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/postAPost", (req, res) => {
+    const q = "INSERT INTO posts (postAuth, postFrom, postTo, postDesc) VALUES ('DizzyDigga', 'West Run', 'The Foundry', 'If anyone would like to go to church on Sunday morning I would be more than willing to take some people so we can all save on gas')"
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
         return res.json(data)
     })
 })

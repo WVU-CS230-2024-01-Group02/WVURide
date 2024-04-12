@@ -20,5 +20,24 @@ describe("CreateAccount Component", () => {
           expect(screen.getByText('Invalid username')).toBeInTheDocument();
         });
       });
+
+      it("displays error for not matching passwords", async () => {
+        render(<CreateAccount />);
+    
+        fireEvent.change(screen.getByPlaceholderText('Mix Email'), {
+          target: { value: 'test@mix.wvu.edu' },
+        });
+        fireEvent.change(screen.getByPlaceholderText('Password'), {
+          target: { value: 'testpassword' },
+        });
+        fireEvent.change(screen.getByPlaceholderText('Confirm your password'), {
+          target: { value: 'testdifferentpassword' },
+        });
+        fireEvent.click(screen.getByText('Create Your Account'));
+    
+        await waitFor(() => {
+          expect(screen.getByText('Invalid password')).toBeInTheDocument();
+        });
+      });
 });
 

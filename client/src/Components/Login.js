@@ -55,7 +55,7 @@ function Login(props) {
     }*/
     passwordElement.style.color = 'black'
     usernameElement.style.color = 'black'
-    const tokenResponse = await axios.post("http://localhost:8800/token", {
+    /*const tokenResponse = await axios.post("http://localhost:8800/token", {
       username: username,
       password: password,
     }).then(response => {
@@ -67,8 +67,8 @@ function Login(props) {
         return null
       }
     });
-    console.log(tokenResponse)
-    TOKEN = tokenResponse
+    console.log(tokenResponse)*/
+    TOKEN = username
     window.location.href = "/home"
     return
 

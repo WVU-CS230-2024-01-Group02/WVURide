@@ -86,6 +86,14 @@ app.get("/login", (req, res) => {
     })
 })
 
+app.post("/token", (req, res) => {
+    var hash = crypto.createHash('sha256')
+    var preHash = req.body.username + 'This is a token'
+    hash.update(preHash)
+    var hashedToken = hash.digest('hex')
+    return res.send(hashedToken)
+})
+
 app.post("/checkEmail", (req, res) => {
     const q = `SELECT * FROM userInfo WHERE email = '${req.body.email}'`
 

@@ -1,12 +1,14 @@
 import React from "react";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-function Post({ text, date, time, userName }) {
+function Post({ text, date, time, userName, to, from, title}) {
     return (
         <li className="post-item">
             <div className="post-content">
                 <div className="post-text">
+                    <h1 className="post-title">{title}</h1>
                     <p>{text}</p>
                     <p className="post-date">{date}</p>
                     <p className="post-time">{time}</p>
@@ -19,40 +21,29 @@ function Post({ text, date, time, userName }) {
 }
 
 
-function HomePage(props) {
+async function HomePage(props) {
 
-    const posts = [
-        {
-            text: "Need a reliable ride to campus? I'm offering carpooling services from the nearby neighborhoods to campus every morning. Let's make commuting hassle-free! See more...",
-            date: "March 4, 2024",
-            time: "25min ago",
-            userName: "User1"
-        },
-        {
-            text: "I have a parking pass for the ESB parking lot. I can pick-up/drop-off as long as you pay for gas. See more...",
-            date: "March 4, 2024",
-            time: "1hr ago",
-            userName: "User2"
-        },
-        {
-            text: "I have a parking pass for the ESB parking lot. I can pick-up/drop-off as long as you pay for gas. See more...",
-            date: "March 4, 2024",
-            time: "7hr ago",
-            userName: "User3"
+    const posts = await axios.post("http://localhost:8800/retrieve5Posts").then(response => {
+        console.log(response.status)
+        console.log(response.data)
+        return response.data
+        }).catch(error => {
+        if (error.status !== 200){
+            return null
         }
-
-    ];
+        });
 
     return (
         <div className="hp-container">
             <div className="blue-rect">
                 <div className="side-btns">
-                    <Link to="/profile"><button className="profile-btn"></button></Link>
-                    <Link to="/home"><button className="home-btn"></button></Link>
-                    <Link to="/message"><button className="msg-btn"></button></Link>
+                    <button className="profile-btn"></button>
+                    <button className="home-btn"></button>
+                    <button className="msg-btn"></button>
                     <Link to="/"><button className="out-btn"></button></Link>
-                    <Link to="/post"><button className="post-btn"></button></Link>
                 </div>
+            </div>
+            <div className="gmaps">
             </div>
             <div className="search-container">
                 <div className="search-bar">
@@ -70,10 +61,12 @@ function HomePage(props) {
                     {posts.map((post, index) => (
                         <Post
                             key={index}
-                            text={post.text}
-                            date={post.date}
-                            time={post.time}
-                            userName={post.userName}
+                            text={post.postDesc}
+                            time={post.postTime}
+                            userName={post.postAuth}
+                            to={post.postTo}
+                            from={post.postFrom}
+                            title={post.postTitle}
                         />
                     ))}
                 </ul>

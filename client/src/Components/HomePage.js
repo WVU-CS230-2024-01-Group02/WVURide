@@ -20,10 +20,8 @@ function Post({ text, date, time, userName, to, from, title}) {
     );
 }
 
-
-async function HomePage(props) {
-
-    const posts = await axios.post("http://localhost:8800/retrieve5Posts").then(response => {
+async function getPosts(){
+    return await axios.post("http://localhost:8800/retrieve5Posts").then(response => {
         console.log(response.status)
         console.log(response.data)
         return response.data
@@ -32,6 +30,12 @@ async function HomePage(props) {
             return null
         }
         });
+}
+
+
+function HomePage(props) {
+
+    const posts = getPosts()
 
     return (
         <div className="hp-container">

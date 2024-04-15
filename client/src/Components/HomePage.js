@@ -47,13 +47,12 @@ function HomePage(props) {
         <div className="hp-container">
             <div className="blue-rect">
                 <div className="side-btns">
-                    <button className="profile-btn"></button>
-                    <button className="home-btn"></button>
-                    <button className="msg-btn"></button>
+                    <Link to="/profile"><button className="profile-btn"></button></Link>
+                    <Link to="/home"><button className="home-btn"></button></Link>
+                    <Link to="/message"><button className="msg-btn"></button></Link>
                     <Link to="/"><button className="out-btn"></button></Link>
+                    <Link to="/post"><button className="post-btn"></button></Link>
                 </div>
-            </div>
-            <div className="gmaps">
             </div>
             <div className="search-container">
                 <div className="search-bar">

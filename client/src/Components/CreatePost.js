@@ -25,19 +25,25 @@ const CreatePost = () => {
         </div>
         <form className="create-post-form">
           <label className="divide"></label>
-          <input type="text" placeholder="Title" className="title-input" name="title" />
+          <input type="text" placeholder="Title" className="title-input" name="title" required/>
           <textarea className="desc-input" name="desc" rows="10" cols="36" placeholder="Description"></textarea>
           <div class="filter-container">
             <label className="flags-label">Flags:</label>
+            <div className="under-flags"></div>
             <div className="filter-btns">
               <label>
                 <input type="checkbox" name="gas" className="gas" />
-                <button className="flag-button gas">Gas</button>
+                <span className="flag-button gas">Gas</span>
               </label>
               <label>
                 <input type="checkbox" name="no-gas" className="no-gas" />
-                <button className="flag-button no-gas">No Gas</button>
+                <span className="flag-button no-gas">No Gas</span>
               </label>
+            </div>
+            <div className="loc-range">
+              <input type="text" className="FROM" placeholder="To:" required></input>
+              <input type="text" className="TO" placeholder="From:" required></input>
+
             </div>
           </div>
           <button type="submit" className="create-post-btn">Create Post</button>

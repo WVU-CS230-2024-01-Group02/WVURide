@@ -2,26 +2,32 @@ import React from "react";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Children from "react";
 
-function Post({ text, date, time, userName, to, from, title}) {
+function Post(props) {
     return (
         <li className="post-item">
             <div className="post-content">
                 <div className="post-text">
-                    <h1 className="post-title">{title}</h1>
-                    <p>{text}</p>
-                    <p className="post-date">{date}</p>
-                    <p className="post-time">{time}</p>
+                    <h1 className="post-title">{props.title}</h1>
+                    <p>{props.text}</p>
+                    <p className="post-time">{props.time}</p>
                 </div>
                 <button className="posts-pfp" />
-                <p className="user-name">{userName}</p>
+                <p className="user-name">{props.userName}</p>
             </div>
         </li>
     );
 }
 
-async function getPosts(){
-    return await axios.post("http://localhost:8800/retrieve5Posts").then(response => {
+//async function getPosts(){
+//    return await 
+//}
+
+
+async function HomePage(props) {
+
+    const postResponse = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
         console.log(response.status)
         console.log(response.data)
         return response.data
@@ -30,12 +36,18 @@ async function getPosts(){
             return null
         }
         });
-}
-
-
-function HomePage(props) {
-
-    const posts = getPosts()
+        console.log(postResponse[0].postAuth)
+    const posts = postResponse
+    const postItems = posts.map((post) => 
+        <Post key={posts.id}
+            text={post.postDesc}
+            time={post.postTime}
+            userName={post.postAuth}
+            to={post.postTo}
+            from={post.postFrom}
+            title={post.postTitle}
+        />
+    )
 
     return (
         <div className="hp-container">
@@ -62,17 +74,7 @@ function HomePage(props) {
                 </div>
 
                 <ul className="post-list">
-                    {posts.map((post, index) => (
-                        <Post
-                            key={index}
-                            text={post.postDesc}
-                            time={post.postTime}
-                            userName={post.postAuth}
-                            to={post.postTo}
-                            from={post.postFrom}
-                            title={post.postTitle}
-                        />
-                    ))}
+                    {postItems}
                 </ul>
             </div>
         </div>

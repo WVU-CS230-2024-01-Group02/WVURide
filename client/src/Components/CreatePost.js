@@ -3,10 +3,37 @@ import { useState } from "react";
 import "./CreatePost.css";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import TOKEN from './Login';
 
 
 
 const CreatePost = () => {
+    const [title, setTitle] = useState('')
+const [postFrom, setFrom] = useState('')
+const [gas, setGas] = useState('')
+const [postDesc, setDesc] = useState('')
+const[postTo, setTo] = useState('')
+
+async function onPost(e){
+    e.preventDefault();
+    //validation
+    const response = await axios.post("http://localhost:8800/postAPost", {
+        username: TOKEN,
+        from: postFrom,
+        to: postTo,
+        gasFlag: gas,
+        desc: postDesc
+        }).then(response => {
+        console.log(response.status)
+        console.log(response.data)
+        return response.data
+        }).catch(error => {
+        if (error.status !== 200){
+            return null
+        }
+        });
+}
+
   return (
     <div className="plus-posts-container">
       <div className="blue-rect">
@@ -25,7 +52,7 @@ const CreatePost = () => {
         </div>
         <form className="create-post-form">
           <label className="divide"></label>
-          <input type="text" placeholder="Title" className="title-input" name="title" />
+          <input type="text" placeholder="Title" className="title-input" name="title" OnInput={e => setTitle(e.target.value)}/>
           <textarea className="desc-input" name="desc" rows="10" cols="36" placeholder="Description"></textarea>
           <div class="filter-container">
             <label className="flags-label">Flags:</label>

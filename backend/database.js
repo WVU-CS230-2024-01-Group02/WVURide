@@ -86,6 +86,14 @@ app.get("/login", (req, res) => {
     })
 })
 
+app.post("/token", (req, res) => {
+    var hash = crypto.createHash('sha256')
+    var preHash = req.body.username + 'This is a token'
+    hash.update(preHash)
+    var hashedToken = hash.digest('hex')
+    return res.send(hashedToken)
+})
+
 app.post("/checkEmail", (req, res) => {
     const q = `SELECT * FROM userInfo WHERE email = '${req.body.email}'`
 
@@ -124,6 +132,47 @@ app.post("/postAPost", (req, res) => {
 
 app.get("/postAPost", (req, res) => {
     const q = "INSERT INTO postsInfo (postAuth, postFrom, postTo, postDesc) VALUES ('DizzyDigga', 'West Run', 'The Foundry', 'If anyone would like to go to church on Sunday morning I would be more than willing to take some people so we can all save on gas')"
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/findPostByFrom", (req, res) => {
+    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.from}'`
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/findPostByTo", (req, res) => {
+    const q = `SELECT * FROM postsInfo WHERE postTo='${req.body.to}'`
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/findPostByFromAndTo", (req, res) => {
+    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.from}' AND postTo='${req.body, to}'`
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/changePassword", (req, res) => {
+    var hash = crypto.createHash('sha256')
+    var saltedPassword = req.body.password + 'carpool'
+    hash.update(saltedPassword)
+    var hashedPassword = hash.digest('hex')
+    console.log(hashedPassword)
+    const q = `UPDATE userInfo SET password = '${hashedPassword}' WHERE username = '${req.body.username}'`
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)

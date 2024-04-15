@@ -2,11 +2,13 @@ import React from "react";
 import "./Login.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
+
+var TOKEN
 
 function Login(props) {
 
-  const con = props.DB
+
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -27,7 +29,7 @@ function Login(props) {
       console.log(response.data)
       return response.data
     }).catch(error => {
-      if (error.status !== 200){
+      if (error.status !== 200) {
         return null
       }
     });
@@ -51,11 +53,25 @@ function Login(props) {
       console.log("invalid password")
       return
     }*/
-      passwordElement.style.color = 'black'
-      usernameElement.style.color = 'black'
-      window.location.href = "/home"
-      return
-    
+    passwordElement.style.color = 'black'
+    usernameElement.style.color = 'black'
+    /*const tokenResponse = await axios.post("http://localhost:8800/token", {
+      username: username,
+      password: password,
+    }).then(response => {
+      console.log(response.status)
+      console.log(response.data)
+      return response.data
+    }).catch(error => {
+      if (error.status !== 200) {
+        return null
+      }
+    });
+    console.log(tokenResponse)*/
+    TOKEN = username
+    window.location.href = "/home"
+    return
+
   }
 
 

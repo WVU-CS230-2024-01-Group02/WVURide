@@ -140,7 +140,7 @@ app.get("/postAPost", (req, res) => {
 })
 
 app.post("/findPostByFrom", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.from}'`
+    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.searchFrom}'`
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)
@@ -149,7 +149,7 @@ app.post("/findPostByFrom", (req, res) => {
 })
 
 app.post("/findPostByTo", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postTo='${req.body.to}'`
+    const q = `SELECT * FROM postsInfo WHERE postTo='${req.body.searchTo}'`
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)
@@ -158,7 +158,7 @@ app.post("/findPostByTo", (req, res) => {
 })
 
 app.post("/findPostByFromAndTo", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.from}' AND postTo='${req.body, to}'`
+    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.searchFrom}' AND postTo='${req.body.searchTo}'`
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)

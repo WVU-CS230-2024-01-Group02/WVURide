@@ -144,10 +144,10 @@ body {
     left: 40%;
     bottom: 20px;
 } */
-.divide {
-    padding: 20px;
+/* .divide {
+    padding: 10px;
 
-}
+} */
 
 .create-post-form {
     text-align: center;
@@ -157,7 +157,7 @@ body {
     transform: translateX(-50%);
     /*Right below the search bar*/
     width: 1000px;
-    height: 530px;
+    height: 550px;
     background-color: #D9D9D9;
     overflow: hidden;
     padding: 10px;
@@ -173,7 +173,7 @@ body {
 }
 
 .title-input,
-.desc-input {
+.desc-input, .TO, .FROM {
     width: 100%;
     height: auto;
     padding: 12px 20px;
@@ -203,6 +203,23 @@ body {
 .flags-label {
     margin-right: 10px;
     color: black;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    font-weight: bold;
+  }
+
+  .under-flags {
+    left: 49%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    position: relative;
+    /* Adjusted for center alignment */
+    width: 35px;
+    max-width: 100%;
+    height: 0;
+    max-height: 100%;
+    outline: solid 2px #fab911; 
   }
   
   .filter-btns {
@@ -218,7 +235,7 @@ body {
   }
   
   .filter-btns label input[type="checkbox"] {
-    display: none; /* Hide the checkbox */
+    display: none;
   }
   
   .filter-btns label .flag-button {
@@ -239,11 +256,14 @@ body {
   .filter-btns label .flag-button:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   }
-  
+  /** Outline when selected**/
+  .filter-btns label input[type="checkbox"]:checked + .flag-button {
+    border: 2px solid #000;
+  }
 
 .create-post-btn {
     width: 250px;
-    height: 80px;
+    height: 50px;
     border-radius: 30px;
     color: white;
     padding: 10px 20px;

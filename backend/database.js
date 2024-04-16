@@ -113,7 +113,7 @@ app.get("/checkEmail", (req, res) => {
 })
 
 app.get("/retrieve5Posts", (req, res) => {
-    const q = "SELECT * FROM postsInfo LIMIT 5"
+    const q = "SELECT * FROM postsInfo"
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)
@@ -122,7 +122,7 @@ app.get("/retrieve5Posts", (req, res) => {
 })
 
 app.post("/postAPost", (req, res) => {
-    const q = `INSERT INTO postsInfo (postAuth, postFrom, postTo, postDesc) VALUES (${req.body.username}, ${req.body.from}, ${req.body.to}, ${req.body.desc})`
+    const q = `INSERT INTO postsInfo (postAuth, postFrom, postTo, postDesc, postGas) VALUES (${req.body.username}, ${req.body.from}, ${req.body.to}, ${req.body.desc}, ${req.body.gasFlag})`
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)

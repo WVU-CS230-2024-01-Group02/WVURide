@@ -45,7 +45,7 @@ function HomePage() {
         if (!posts.loaded) {
             fetchPosts()
         }
-    }, [fetchPosts])
+    }, [fetchPosts, posts.loaded])
 
     return (
         <div className="hp-container">
@@ -73,12 +73,12 @@ function HomePage() {
 
                 <ul className="post-list">
                     {posts.loaded && posts.data.length > 0 ? posts.data.map(post => {
-                        console.log(posts)
+                        console.log(post)
                         return <Post
-                            text={posts.postDesc}
-                            time={posts.postTime}
-                            userName={posts.postAuth}
-                            title={posts.postTitle}
+                            text={post.postDesc}
+                            time={post.postTime}
+                            userName={post.postAuth}
+                            title={post.postTitle}
                         />
                     }) : null}
                 </ul>

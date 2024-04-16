@@ -4,6 +4,11 @@ import "./CreatePost.css";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+const [title, setTitle] = useState('');
+const [to, setTo] = useState('');
+const [from, setFrom] = useState('');
+const [desc, setDesc] = useState('');
+
 
 
 const CreatePost = () => {
@@ -25,7 +30,7 @@ const CreatePost = () => {
         </div>
         <form className="create-post-form">
           <label className="divide"></label>
-          <input type="text" placeholder="Title" className="title-input" name="title" />
+          <input type="text" placeholder="Title" className="title-input" name="title" OnInput={e => setTitle(e.target.value)} />
           <textarea className="desc-input" name="desc" rows="10" cols="36" placeholder="Description"></textarea>
           <div class="filter-container">
             <label className="flags-label">Flags:</label>

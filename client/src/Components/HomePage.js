@@ -1,20 +1,20 @@
 import React from "react";
 import "./HomePage.css";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Children from "react";
 
-function Post(props) {
+function Post(post) {
     return (
         <li className="post-item">
             <div className="post-content">
                 <div className="post-text">
-                    <h1 className="post-title">{props.title}</h1>
-                    <p>{props.text}</p>
-                    <p className="post-time">{props.time}</p>
+                    <h1 className="post-title">{post.postTitle}</h1>
+                    <p>{post.postDesc}</p>
+                    <p className="post-time">{post.postTime}</p>
                 </div>
                 <button className="posts-pfp" />
-                <p className="user-name">{props.userName}</p>
+                <p className="user-name">{post.postAuth}</p>
             </div>
         </li>
     );
@@ -27,27 +27,24 @@ function Post(props) {
 
 async function HomePage(props) {
 
-    const postResponse = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
-        console.log(response.status)
-        console.log(response.data)
-        return response.data
+    const [posts, setPosts] = useState({ loaded: false, data: [] })
+
+    const fetchPosts = useCallback(async () => {
+        const response = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
+            return response.data
         }).catch(error => {
-        if (error.status !== 200){
-            return null
-        }
+            if (error.status !== 200) {
+                return null
+            }
         });
-        console.log(postResponse[0].postAuth)
-    const posts = postResponse
-    const postItems = posts.map((post) => 
-        <Post key={posts.id}
-            text={post.postDesc}
-            time={post.postTime}
-            userName={post.postAuth}
-            to={post.postTo}
-            from={post.postFrom}
-            title={post.postTitle}
-        />
-    )
+        setPosts({ loaded: true, data: response })
+    }, [setPosts])
+
+    useEffect(() => {
+        if (!posts.loaded) {
+            fetchPosts()
+        }
+    }, [fetchPosts])
 
     return (
         <div className="hp-container">
@@ -74,7 +71,9 @@ async function HomePage(props) {
                 </div>
 
                 <ul className="post-list">
-                    {postItems}
+                    {posts.loaded && posts.data.length > 0 ? posts.data.map(post => {
+                        <Post />
+                    }) : null}
                 </ul>
             </div>
         </div>

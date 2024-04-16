@@ -15,7 +15,6 @@ import {
 
 
 function App() {
-  /*const mysql = require('mysql')*/
 
   return (
     <div className="App">
@@ -32,20 +31,6 @@ function App() {
           <Route path="/search" element={<SearchPosts/>}/>
         </Routes>
       </BrowserRouter>
-
-      {/* <div className='login-page'>
-        < Login />
-        <MapDesign />
-      </div> */}
-
-      {/* <div className='create-account'>
-      <CreateAccount />
-      <MapDesign/>
-      </div>  */}
-
-      {/*<div className='home-page' >
-        <HomePage/>
-    </div>*/}
 
     </div >
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Profile.css"
+import "./SearchPosts.css"
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
@@ -20,15 +20,15 @@ function SearchPosts(props) {
 }
 
 const Profile = () => {
-    const[to, setTo] = useState("")
-    const[from, setFrom] = useState("")
-    const[gas, setGas] = useState(-1)
+    const [to, setTo] = useState("")
+    const [from, setFrom] = useState("")
+    const [gas, setGas] = useState(-1)
     var postResponse
 
-    async function searchPosts(){
-        if(to == null && from == null && gas == -1){
+    async function searchPosts() {
+        if (to == null && from == null && gas == -1) {
             const response = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
-                const postItems = response.body.map((post) => 
+                const postItems = response.body.map((post) =>
                     <SearchPosts key={response.body.id}
                         text={response.body.postDesc}
                         time={response.body.postTime}
@@ -39,17 +39,17 @@ const Profile = () => {
                     />
                 )
                 return postItems
-                }).catch(error => {
-                    if (error.status !== 200){
-                        return null
-                    }
-                });
+            }).catch(error => {
+                if (error.status !== 200) {
+                    return null
+                }
+            });
         }
-        else if(from == null && gas == -1 && to != null){
+        else if (from == null && gas == -1 && to != null) {
             const response = await axios.get("http://localhost:8800/findPostByTo", {
                 searchTo: to,
             }).then(response => {
-                const postItems = response.body.map((post) => 
+                const postItems = response.body.map((post) =>
                     <SearchPosts key={response.body.id}
                         text={response.body.postDesc}
                         time={response.body.postTime}
@@ -60,17 +60,17 @@ const Profile = () => {
                     />
                 )
                 return postItems
-                }).catch(error => {
-                    if (error.status !== 200){
-                        return null
-                    }
-                });
+            }).catch(error => {
+                if (error.status !== 200) {
+                    return null
+                }
+            });
         }
-        else if(to == null && gas == -1 && from != null){
+        else if (to == null && gas == -1 && from != null) {
             const response = await axios.get("http://localhost:8800/findPostByFrom", {
                 searchFrom: from,
             }).then(response => {
-                const postItems = response.body.map((post) => 
+                const postItems = response.body.map((post) =>
                     <SearchPosts key={response.body.id}
                         text={response.body.postDesc}
                         time={response.body.postTime}
@@ -81,18 +81,18 @@ const Profile = () => {
                     />
                 )
                 return postItems
-                }).catch(error => {
-                    if (error.status !== 200){
-                        return null
-                    }
-                });
+            }).catch(error => {
+                if (error.status !== 200) {
+                    return null
+                }
+            });
         }
-        else if(gas == -1 && from != null && to != null){
+        else if (gas == -1 && from != null && to != null) {
             const response = await axios.get("http://localhost:8800/findPostByFromAndTo", {
                 searchTo: to,
                 searchFrom: from,
             }).then(response => {
-                const postItems = response.body.map((post) => 
+                const postItems = response.body.map((post) =>
                     <SearchPosts key={response.body.id}
                         text={response.body.postDesc}
                         time={response.body.postTime}
@@ -103,17 +103,17 @@ const Profile = () => {
                     />
                 )
                 return postItems
-                }).catch(error => {
-                    if (error.status !== 200){
-                        return null
-                    }
-                });
+            }).catch(error => {
+                if (error.status !== 200) {
+                    return null
+                }
+            });
         }
     }
 
-  return (
-    <div className='search-posts-container'>
-        <div className="blue-rect">
+    return (
+        <div className='search-posts-container'>
+            <div className="blue-rect">
                 <div className="side-btns">
                     <Link to="/profile"><button className="profile-btn"></button></Link>
                     <Link to="/home"><button className="home-btn"></button></Link>
@@ -122,22 +122,22 @@ const Profile = () => {
                     <Link to="/post"><button className="post-btn"></button></Link>
                 </div>
             </div>
-        <div className="searching">
-            <div className="to-and-from">
-                <input type="text" className="search-from" placeholder="From:" required onInput={e => setFrom(e.target.value)}></input>
-                <input type="text" className="search-to" placeholder="To:" required onInput={e => setTo(e.target.value)}></input>
-            </div>
-            <div className="filter-btns">
-              <label>
-                <input type="checkbox" name="gas" className="gas" onInput={e => setGas(1)} />
-                <span className="flag-button gas" >Gas</span>
-              </label>
-              <label>
-                <input type="checkbox" name="no-gas" className="no-gas" onInput={e => setGas(0)} />
-                <span className="flag-button no-gas">No Gas</span>
-              </label>
-            </div>
-            <button type="submit" className="search-post-btn" OnClick={e => searchPosts()}>Search</button>
+            <div className="searching">
+                <div className="to-and-from">
+                    <input type="text" className="search-from" placeholder="From:" required onInput={e => setFrom(e.target.value)}></input>
+                    <input type="text" className="search-to" placeholder="To:" required onInput={e => setTo(e.target.value)}></input>
+                </div>
+                <div className="filter-btns">
+                    <label>
+                        <input type="checkbox" name="gas" className="gas" onInput={e => setGas(1)} />
+                        <span className="flag-button gas" >Gas</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="no-gas" className="no-gas" onInput={e => setGas(0)} />
+                        <span className="flag-button no-gas">No Gas</span>
+                    </label>
+                </div>
+                <button type="submit" className="search-post-btn" OnClick={e => searchPosts()}>Search</button>
             </div>
             <div className="post-container">
                 <div className="title-container">
@@ -149,10 +149,10 @@ const Profile = () => {
                     {postResponse}
                 </ul>
             </div>
-    </div>
-    
-    
-  )
+        </div>
+
+
+    )
 }
 
-export default SearchPosts;
+export default Profile;

@@ -5,16 +5,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Post(post) {
+    console.log(post)
     return (
         <li className="post-item">
             <div className="post-content">
                 <div className="post-text">
-                    <h1 className="post-title">{post.postTitle}</h1>
-                    <p>{post.postDesc}</p>
-                    <p className="post-time">{post.postTime}</p>
+                    <h1 className="post-title">{post.title}</h1>
+                    <p>{post.text}</p>
+                    <p className="post-time">{post.time}</p>
                 </div>
                 <button className="posts-pfp" />
-                <p className="user-name">{post.postAuth}</p>
+                <p className="user-name">{post.userName}</p>
             </div>
         </li>
     );
@@ -25,7 +26,7 @@ function Post(post) {
 //}
 
 
-async function HomePage(props) {
+function HomePage() {
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 
@@ -72,7 +73,13 @@ async function HomePage(props) {
 
                 <ul className="post-list">
                     {posts.loaded && posts.data.length > 0 ? posts.data.map(post => {
-                        <Post />
+                        console.log(posts)
+                        return <Post
+                            text={posts.postDesc}
+                            time={posts.postTime}
+                            userName={posts.postAuth}
+                            title={posts.postTitle}
+                        />
                     }) : null}
                 </ul>
             </div>

@@ -28,26 +28,23 @@ function Post(props) {
 async function HomePage(props) {
 
     const postResponse = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
-        console.log(response.status)
-        console.log(response.data)
-        return response.data
+        const postItems = response.body.map((post) => 
+            <Post key={response.body.id}
+                text={response.body.postDesc}
+                time={response.body.postTime}
+                userName={response.body.postAuth}
+                to={response.body.postTo}
+                from={response.body.postFrom}
+                title={response.body.postTitle}
+            />
+        )
+        return postItems
         }).catch(error => {
-        if (error.status !== 200){
-            return null
-        }
+            if (error.status !== 200){
+                return null
+            }
         });
-        console.log(postResponse[0].postAuth)
-    const posts = postResponse
-    const postItems = posts.map((post) => 
-        <Post key={posts.id}
-            text={post.postDesc}
-            time={post.postTime}
-            userName={post.postAuth}
-            to={post.postTo}
-            from={post.postFrom}
-            title={post.postTitle}
-        />
-    )
+        
 
     return (
         <div className="hp-container">
@@ -74,7 +71,7 @@ async function HomePage(props) {
                 </div>
 
                 <ul className="post-list">
-                    {postItems}
+                    {postResponse}
                 </ul>
             </div>
         </div>

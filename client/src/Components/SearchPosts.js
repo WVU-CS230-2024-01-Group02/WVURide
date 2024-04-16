@@ -1,8 +1,9 @@
-import React from 'react'
+import { useState } from "react";
 import "./Profile.css"
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
-function Post(props) {
+function SearchPosts(props) {
     return (
         <li className="post-item">
             <div className="post-content">
@@ -28,7 +29,7 @@ const Profile = () => {
         if(to == null && from == null && gas == -1){
             const response = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
                 const postItems = response.body.map((post) => 
-                    <Post key={response.body.id}
+                    <SearchPosts key={response.body.id}
                         text={response.body.postDesc}
                         time={response.body.postTime}
                         userName={response.body.postAuth}
@@ -49,7 +50,7 @@ const Profile = () => {
                 searchTo: to,
             }).then(response => {
                 const postItems = response.body.map((post) => 
-                    <Post key={response.body.id}
+                    <SearchPosts key={response.body.id}
                         text={response.body.postDesc}
                         time={response.body.postTime}
                         userName={response.body.postAuth}
@@ -70,7 +71,7 @@ const Profile = () => {
                 searchFrom: from,
             }).then(response => {
                 const postItems = response.body.map((post) => 
-                    <Post key={response.body.id}
+                    <SearchPosts key={response.body.id}
                         text={response.body.postDesc}
                         time={response.body.postTime}
                         userName={response.body.postAuth}
@@ -92,7 +93,7 @@ const Profile = () => {
                 searchFrom: from,
             }).then(response => {
                 const postItems = response.body.map((post) => 
-                    <Post key={response.body.id}
+                    <SearchPosts key={response.body.id}
                         text={response.body.postDesc}
                         time={response.body.postTime}
                         userName={response.body.postAuth}
@@ -153,3 +154,5 @@ const Profile = () => {
     
   )
 }
+
+export default SearchPosts;

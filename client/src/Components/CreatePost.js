@@ -124,8 +124,8 @@ const CreatePost = () => {
               </label>
             </div>
             <div className="loc-range">
-              <input type="text" className="FROM" placeholder="To:" required onInput={e => setFrom(e.target.value)}></input>
-              <input type="text" className="TO" placeholder="From:" required onInput={e => setTo(e.target.value)}></input>
+              <input type="text" className="FROM" placeholder="From:" required onInput={e => setFrom(e.target.value)}></input>
+              <input type="text" className="TO" placeholder="To:" required onInput={e => setTo(e.target.value)}></input>
 
             </div>
           </div>

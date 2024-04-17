@@ -1,9 +1,10 @@
-import { useState } from "react";
+import React from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./SearchPosts.css"
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function SearchPosts(props) {
+function Post(props) {
     return (
         <li className="post-item">
             <div className="post-content">
@@ -19,11 +20,11 @@ function SearchPosts(props) {
     );
 }
 
-const searchPosts = () => {
+const SearchPosts = () => {
+
     const [to, setTo] = useState("")
     const [from, setFrom] = useState("")
     const [gas, setGas] = useState(-1)
-    var postResponse
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 
@@ -71,35 +72,24 @@ const searchPosts = () => {
         setPosts({ loaded: true, data: response })
     }, [setPosts])
 
-    async function searchForPosts() {
-        if (to == null && from == null && gas == -1) {
-            useEffect(() => {
-                if (!posts.loaded) {
+    async function SearchForPosts() {
+        useEffect(() => {
+            if (!posts.loaded) {
+
+                if (to == null && from == null && gas == -1) {
                     fetchPosts()
                 }
-            }, [fetchPosts, posts.loaded])
-        }
-        else if (from == null && gas == -1 && to != null) {
-            useEffect(() => {
-                if (!posts.loaded) {
+                else if (from == null && gas == -1 && to != null) {
                     fetchPostsByTo()
                 }
-            }, [fetchPostsByTo, posts.loaded])
-        }
-        else if (to == null && gas == -1 && from != null) {
-            useEffect(() => {
-                if (!posts.loaded) {
+                else if (to == null && gas == -1 && from != null) {
                     fetchPostsByFrom()
                 }
-            }, [fetchPostsByFrom, posts.loaded])
-        }
-        else if (gas == -1 && from != null && to != null) {
-            useEffect(() => {
-                if (!posts.loaded) {
+                else if (gas == -1 && from != null && to != null) {
                     fetchPostsByToAndFrom()
                 }
-            }, [fetchPostsByToAndFrom, posts.loaded])
-        }
+            }
+        }, [fetchPosts, fetchPostsByTo, fetchPostsByFrom, fetchPostsByToAndFrom, posts.loaded])
     }
 
     return (
@@ -137,7 +127,7 @@ const searchPosts = () => {
                                 <span className="flag-button-sr no-gas-sr">No Gas</span>
                             </label>
                         </div>
-                        <button type="submit" className="search-post-btn" onClick={e => searchPosts()}>Search</button>
+                        <button type="submit" className="search-post-btn" onClick={e => SearchForPosts()}>Search</button>
                     </div>
 
                     <div className="post-container">
@@ -165,7 +155,7 @@ const searchPosts = () => {
             </div>
 
 
-            )
+        </div>)
 }
 
-            export default Profile;
+export default SearchPosts;

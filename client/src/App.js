@@ -5,6 +5,7 @@ import HomePage from './Components/HomePage';
 import Profile from './Components/Profile';
 import Message from './Components/Message';
 import CreatePost from './Components/CreatePost';
+import SearchPosts from './Components/SearchPosts';
 import {
   BrowserRouter,
   Routes,
@@ -14,7 +15,6 @@ import {
 
 
 function App() {
-  /*const mysql = require('mysql')*/
 
   return (
     <div className="App">
@@ -28,23 +28,9 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/message" element={<Message />} />
           <Route path="/post" element={<CreatePost/>} />
-
+          <Route path="/search" element={<SearchPosts/>}/>
         </Routes>
       </BrowserRouter>
-
-      {/* <div className='login-page'>
-        < Login />
-        <MapDesign />
-      </div> */}
-
-      {/* <div className='create-account'>
-      <CreateAccount />
-      <MapDesign/>
-      </div>  */}
-
-      {/*<div className='home-page' >
-        <HomePage/>
-    </div>*/}
 
     </div >
   );

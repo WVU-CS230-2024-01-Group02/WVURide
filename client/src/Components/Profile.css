@@ -102,11 +102,30 @@ body {
     filter: invert(95%);
 }
 
+.search-btn {
+    width: 90px;
+    height: 90px;
+    background-image: url('Assets/search-vec.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    filter: invert(95%);
+    border: none;
+    outline: none;
+    top: 65px; 
+    left: -4%;
+    background-color: transparent;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
 .profile-btn:hover,
 .home-btn:hover,
 .msg-btn:hover,
 .out-btn:hover, 
-.post-btn:hover {
+.post-btn:hover,
+.search-btn:hover {
     transform: scale(1.05);
     cursor: pointer;
 }

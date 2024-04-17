@@ -117,28 +117,35 @@ const Profile = () => {
                 <div className="side-btns">
                     <Link to="/profile"><button className="profile-btn"></button></Link>
                     <Link to="/home"><button className="home-btn"></button></Link>
+                    <Link to="/search"><button className="search-btn"></button></Link>
                     <Link to="/message"><button className="msg-btn"></button></Link>
                     <Link to="/"><button className="out-btn"></button></Link>
                     <Link to="/post"><button className="post-btn"></button></Link>
                 </div>
             </div>
-            <div className="searching">
-                <div className="to-and-from">
-                    <input type="text" className="search-from" placeholder="From:" required onInput={e => setFrom(e.target.value)}></input>
-                    <input type="text" className="search-to" placeholder="To:" required onInput={e => setTo(e.target.value)}></input>
+
+
+            <div className="searching-container">
+                <div className="search-bar-from">
+                    <input type="text" className="search-input-fm" placeholder="From:" required onInput={e => setFrom(e.target.value)}></input>
                 </div>
-                <div className="filter-btns">
+                <div className="search-bar-to">
+                    <input type="text" className="search-input-to" placeholder="To:" required onInput={e => setTo(e.target.value)}></input>
+                </div>
+
+                <div className="filter-btns-sr">
                     <label>
-                        <input type="checkbox" name="gas" className="gas" onInput={e => setGas(1)} />
-                        <span className="flag-button gas" >Gas</span>
+                        <input type="checkbox" name="gas" className="gas-sr" onInput={e => setGas(1)} />
+                        <span className="flag-button-sr gas-sr" >Gas</span>
                     </label>
                     <label>
-                        <input type="checkbox" name="no-gas" className="no-gas" onInput={e => setGas(0)} />
-                        <span className="flag-button no-gas">No Gas</span>
+                        <input type="checkbox" name="no-gas" className="no-gas-sr" onInput={e => setGas(0)} />
+                        <span className="flag-button-sr no-gas-sr">No Gas</span>
                     </label>
                 </div>
-                <button type="submit" className="search-post-btn" OnClick={e => searchPosts()}>Search</button>
+                <button type="submit" className="search-post-btn" onClick={e => searchPosts()}>Search</button>
             </div>
+
             <div className="post-container">
                 <div className="title-container">
                     <div className="post-title">Posts</div>

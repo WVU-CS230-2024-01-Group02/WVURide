@@ -73,6 +73,8 @@ body {
     box-shadow: 3px 0px 3px 0px #00000040;
 }
 
+
+
 .post-btn {
     width: 90px;
     height: 90px;
@@ -85,6 +87,24 @@ body {
     border: none;
     outline: none;
     top: 85px; 
+    left: -4%;
+    background-color: transparent;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.search-btn {
+    width: 90px;
+    height: 90px;
+    background-image: url('Assets/search-vec.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    filter: invert(95%);
+    border: none;
+    outline: none;
+    top: 65px; 
     left: -4%;
     background-color: transparent;
     padding-bottom: 10px;
@@ -111,7 +131,8 @@ body {
 .home-btn:hover,
 .msg-btn:hover,
 .out-btn:hover, 
-.post-btn:hover {
+.post-btn:hover,
+.search-btn:hover {
     transform: scale(1.05);
     cursor: pointer;
 }
@@ -151,7 +172,7 @@ body {
     margin-left: 20px;
 }
 
-.search-btn {
+/* .search-btn {
     position: relative;
     width: 40px;
     height: 40px;
@@ -166,11 +187,11 @@ body {
     cursor: pointer;
     right: 20px;
     opacity: 0.4;
-}
+} */
 
-.search-btn:hover {
+/* .search-btn:hover {
     transform: scale(1.1);
-}
+} */
 
 .post-title {
     font-size: 30pt;
@@ -209,7 +230,7 @@ body {
     left: 50%;
     transform: translateX(-50%); /*Right below the search bar*/
     width: 750px;
-    height: 570px;
+    height: 560px;
     background-color: #D9D9D9;
     padding: 10px;
     overflow-y: scroll;

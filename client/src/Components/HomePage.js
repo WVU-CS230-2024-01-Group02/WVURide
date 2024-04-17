@@ -54,16 +54,17 @@ function HomePage() {
                 <div className="side-btns">
                     <Link to="/profile"><button className="profile-btn"></button></Link>
                     <Link to="/home"><button className="home-btn"></button></Link>
+                    <Link to="/search"><button className="search-btn"></button></Link>
                     <Link to="/message"><button className="msg-btn"></button></Link>
                     <Link to="/"><button className="out-btn"></button></Link>
                     <Link to="/post"><button className="post-btn"></button></Link>
                 </div>
             </div>
             <div className="search-container">
-                <div className="search-bar">
+                {/* <div className="search-bar">
                     <input type="text" placeholder="Where to?..." className="search-input" />
-                    <button className="search-btn"></button>
-                </div>
+                    <Link to="/search"><button className="search-btn"></button></Link> 
+                </div> */}
             </div>
             <div className="post-container">
                 <div className="title-container">

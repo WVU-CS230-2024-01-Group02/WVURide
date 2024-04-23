@@ -6,6 +6,7 @@ import Profile from './Components/Profile';
 import Message from './Components/Message';
 import CreatePost from './Components/CreatePost';
 import SearchPosts from './Components/SearchPosts';
+import ForgotPW from './Components/ForgotPW';
 import {
   BrowserRouter,
   Routes,
@@ -29,6 +30,7 @@ function App() {
           <Route path="/message" element={<Message />} />
           <Route path="/post" element={<CreatePost/>} />
           <Route path="/search" element={<SearchPosts/>}/>
+          <Route path="/forgot-password" element={<ForgotPW/>}/>
         </Routes>
       </BrowserRouter>
 

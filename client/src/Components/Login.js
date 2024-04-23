@@ -99,7 +99,7 @@ function Login(props) {
         </form>
         <div className="links">
           <span>Don't have an account?<br></br><Link to="/createaccount"><a href="/createaccount">Create Account</a></Link></span>
-          <span><a href="/forgot-password">Forgot Password?</a></span>
+          <span><Link to="/forgot-password"><a href="/forgot-password">Forgot Password?</a></Link></span>
         </div>
       </div>
       <div className="map-container-lg">

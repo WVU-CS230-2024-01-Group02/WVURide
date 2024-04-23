@@ -3,7 +3,6 @@
 body {
     overflow: hidden;
     /* Added this for making sure the map design stays fixed */
-    color: black;
 }
 
 .ca-container {

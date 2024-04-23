@@ -148,6 +148,7 @@ return (
                 </div>
 
 
-                )}
+                )
+            }
 
 export default SearchPosts;

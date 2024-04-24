@@ -28,6 +28,9 @@ function Post(post) {
 
 
 function HomePage() {
+    if(localStorage.getItem('user') === null){
+        window.location.href = '/'
+    }
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 

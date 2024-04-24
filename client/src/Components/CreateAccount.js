@@ -135,7 +135,7 @@ function CreateAccount(props) {
             }).then(response => {
                 return response;
             });
-            window.location.href = "/home"
+            window.location.href = "/"
             return
             
         }

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 function Login(props) {
-
+  localStorage.clear()
 
 
   const [username, setUsername] = useState('')

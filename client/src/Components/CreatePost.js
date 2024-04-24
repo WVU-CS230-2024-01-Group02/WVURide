@@ -90,6 +90,7 @@ const CreatePost = () => {
           return null
         }
       });
+      window.location.href = "/home"
       return
     }
   }

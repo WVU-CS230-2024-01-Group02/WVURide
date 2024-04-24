@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText } from "@testing-library/react";
 
 
 import App from "./App";
 import CreateAccount from "./Components/CreateAccount";
+import CreatePost from "./Components/CreatePost";
 
 
 /*
@@ -92,14 +93,109 @@ describe("CreateAccount Component", () => {
 ***************** Navigation Testing, 
  */
 describe("Navigation Component", () => {
+
 });
 
 
 /*
 ***************** Post Testing, 
  */
+
+/*
 describe("Post Component", () => {
-});
+  it("should display error message for null to value", async () => {
+    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const toInput = getByPlaceholderText("To:");
+    const button = getByText("Create Post");
+
+    fireEvent.change(toInput, { target: { value: "" } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
+/*
+  it("should display error message for too long to value", async () => {
+    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const toInput = getByPlaceholderText("To:");
+    const button = getByText("Create Post");
+
+    fireEvent.change(toInput, { target: { value: "The following is an input of more than 45 characters for a test value within the post testing." } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
+
+  it("should display error message for null from value", async () => {
+    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const fromInput = getByPlaceholderText("From:");
+    const button = getByText("Create Post");
+
+    fireEvent.change(fromInput, { target: { value: "" } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
+
+  it("should display error message for too long from value", async () => {
+    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const fromInput = getByPlaceholderText("From:");
+    const button = getByText("Create Post");
+
+    fireEvent.change(fromInput, { target: { value: "The following is an input of more than 45 characters for a test value within the post testing." } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
+
+  it("should display error message for null title value", async () => {
+    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const titleInput = getByPlaceholderText("Title");
+    const button = getByText("Create Post");
+
+    fireEvent.change(titleInput, { target: { value: "" } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
+
+  it("should display error message for too long title value", async () => {
+    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const titleInput = getByPlaceholderText("Title");
+    const button = getByText("Create Post");
+
+    fireEvent.change(titleInput, { target: { value: "The following is an input of more than 45 characters for a test value within the post testing." } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
+
+  it("should display error message for too long description value", async () => {
+    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const descInput = getByPlaceholderText("Description");
+    const button = getByText("Create Post");
+
+    fireEvent.change(descInput, { target: { value: "The following is an input of more than 250 characters for a test value within the post testing. This value will be used in testing the length of the description for a specific post made in WVURide. It is to ensure that the length of the description is kept to a maximum of 250 characters." } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
+
+*/
+//});
 
 /*
 ***************** Search Testing, 

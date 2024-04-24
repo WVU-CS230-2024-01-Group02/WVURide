@@ -192,7 +192,7 @@ function CreateAccount(props) {
                     <label htmlFor="bio">Enter a bio if you'd like!</label>
                     <textarea id="bio" name="bio"></textarea>
                 </div> */}
-                <button type="submit" className="ca-btn" onClick={checkForm}>Create Your Account</button>
+                <button type="submit" className="ca-btn" data-testid="create-button" onClick={checkForm}>Create Your Account</button>
             </form>
             <div className="links">
                 <span><Link to="/"><a href="/login">Go back to login.</a></Link></span>

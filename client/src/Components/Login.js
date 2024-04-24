@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-var TOKEN
 
 function Login(props) {
 
@@ -42,33 +41,9 @@ function Login(props) {
       console.log("null response")
       return
     }
-
-    /*var realPassword = response[0].password
-    console.log(realPassword)
-
-    if (password !== realPassword) {
-      passwordElement.style.color = 'red'
-      usernameElement.style.color = 'red'
-      alert("Invalid username or password")
-      console.log("invalid password")
-      return
-    }*/
+    localStorage.setItem('user', JSON.stringify(response[0]))
     passwordElement.style.color = 'black'
     usernameElement.style.color = 'black'
-    /*const tokenResponse = await axios.post("http://localhost:8800/token", {
-      username: username,
-      password: password,
-    }).then(response => {
-      console.log(response.status)
-      console.log(response.data)
-      return response.data
-    }).catch(error => {
-      if (error.status !== 200) {
-        return null
-      }
-    });
-    console.log(tokenResponse)*/
-    TOKEN = username
     window.location.href = "/home"
     return
 

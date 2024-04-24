@@ -122,7 +122,7 @@ app.get("/retrieve5Posts", (req, res) => {
 })
 
 app.post("/postAPost", (req, res) => {
-    const q = `INSERT INTO postsInfo (postAuth, postFrom, postTo, postDesc, postGas, postTitle) VALUES (${req.body.username}, ${req.body.from}, ${req.body.to}, ${req.body.desc}, ${req.body.gasFlag}, ${req.body.title})`
+    const q = `INSERT INTO postsInfo (postAuth, postFrom, postTo, postDesc, postGas, postTitle) VALUES ('${req.body.username}', '${req.body.from}', '${req.body.to}', '${req.body.desc}', ${req.body.gasFlag}, '${req.body.title}')`
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)

@@ -69,10 +69,11 @@ const CreatePost = () => {
           errMsg += ", and From is too long"
         }
       }
+      return
     }
     else {
       const response = await axios.post("http://localhost:8800/postAPost", {
-        username: TOKEN,
+        username: JSON.parse(localStorage.getItem("user")).username,
         from: postFrom,
         to: postTo,
         gasFlag: gas,
@@ -84,9 +85,12 @@ const CreatePost = () => {
         return response.data
       }).catch(error => {
         if (error.status !== 200) {
+          console.log("could not post")
+          alert("Your post could not be sent to the server. Please try again later.")
           return null
         }
       });
+      return
     }
   }
 
@@ -109,9 +113,9 @@ const CreatePost = () => {
         </div>
         <form className="create-post-form">
           <label className="divide"></label>
-          <input type="text" placeholder="Title" className="title-input" name="title" OnInput={e => setTitle(e.target.value)} required />
-          <textarea className="desc-input" name="desc" rows="10" cols="36" placeholder="Description" OnInput={e => setDesc(e.target.value)}></textarea>
-          <div class="filter-container">
+          <input type="text" placeholder="Title" className="title-input" name="title" onInput={e => setTitle(e.target.value)} required />
+          <textarea className="desc-input" name="desc" rows="10" cols="36" placeholder="Description" onInput={e => setDesc(e.target.value)}></textarea>
+          <div className="filter-container">
             <label className="flags-label">Flags:</label>
             <div className="under-flags"></div>
             <div className="filter-btns">
@@ -130,7 +134,7 @@ const CreatePost = () => {
 
             </div>
           </div>
-          <button type="submit" className="create-post-btn" OnClick={e => onPost()}>Create Post</button>
+          <button type="submit" className="create-post-btn" onClick={e => onPost(e)}>Create Post</button>
 
 
         </form>

@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText } from "@testing-library/react";
+import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, unmount } from "@testing-library/react";
 
 
 import App from "./App";
@@ -12,6 +12,7 @@ import CreatePost from "./Components/CreatePost";
 ***************** Create Account Tests, currently running 5/5 successful
  */
 describe("CreateAccount Component", () => {
+
   it("should display error message for invalid email", async () => {
     const { getByText, getByPlaceholderText, getByTestId } = render(<BrowserRouter><CreateAccount /></BrowserRouter>);
     const emailInput = getByPlaceholderText("Mix Email");
@@ -101,10 +102,11 @@ describe("Navigation Component", () => {
 ***************** Post Testing, 
  */
 
-/*
+
 describe("Post Component", () => {
+
   it("should display error message for null to value", async () => {
-    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const {getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
     const toInput = getByPlaceholderText("To:");
     const button = getByText("Create Post");
 
@@ -115,7 +117,7 @@ describe("Post Component", () => {
       expect(global.alert).toHaveBeenCalled;
     });
   });
-/*
+
   it("should display error message for too long to value", async () => {
     const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
     const toInput = getByPlaceholderText("To:");
@@ -194,8 +196,7 @@ describe("Post Component", () => {
     });
   });
 
-*/
-//});
+});
 
 /*
 ***************** Search Testing, 

@@ -114,20 +114,23 @@ describe("Navigation Component", () => {
 
   it("should navigate to create account from login", async () => {
     const { container } = render(
-      <MemoryRouter initialEntries={['/login']}>
-        <Login />
-      </MemoryRouter>
+      <MemoryRouter initialEntries={["/login"]}><Login /></MemoryRouter>
     );
-  
-    const createAccountLink = screen.getByText('Create Account');
-  
+    const createAccountLink = screen.getByText("Create Account");
     fireEvent.click(createAccountLink);
-  
-    
-    expect(container.innerHTML).toContain('/createaccount');
+    expect(container.innerHTML).toContain("/createaccount");
   
   });
   
+  it("should navigate to forgot password from login", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/login"]}><Login /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByText("Forgot Password?");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/forgot-password");
+  
+  });
 });
 
 

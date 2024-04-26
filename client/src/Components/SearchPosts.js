@@ -20,7 +20,7 @@ function Post(props) {
     );
 }
 
-const SearchPosts = () => {
+function SearchPosts(){
     if (localStorage.getItem('user') === null) {
         window.location.href = '/'
     }
@@ -148,7 +148,7 @@ const SearchPosts = () => {
                     fetchGasPostsByToAndFrom()
                 }
             }
-        }, [fetchPosts, fetchPostsByTo, fetchPostsByFrom, fetchPostsByToAndFrom, posts.loaded])
+        }, [fetchPosts, fetchPostsByTo, fetchPostsByFrom, fetchPostsByToAndFrom, fetchGasPosts, fetchGasPostsByTo, fetchGasPostsByFrom, fetchGasPostsByToAndFrom, posts.loaded])
     }
 
     return (

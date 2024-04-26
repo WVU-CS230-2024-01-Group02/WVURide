@@ -20,14 +20,14 @@ function Post(props) {
     );
 }
 
-const SearchPosts = () => {
+function SearchPosts(){
     if (localStorage.getItem('user') === null) {
         window.location.href = '/'
     }
 
     const [to, setTo] = useState("")
     const [from, setFrom] = useState("")
-    const [gas, setGas] = useState(-1)
+    const [gas, setGas] = useState(0)
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 
@@ -75,24 +75,80 @@ const SearchPosts = () => {
         setPosts({ loaded: true, data: response })
     }, [setPosts])
 
+    const fetchGasPosts = useCallback(async () => {
+        const response = await axios.get("http://localhost:8800/retrieveGasPosts").then(response => {
+            return response.data
+        }).catch(error => {
+            if (error.status !== 200) {
+                return null
+            }
+        });
+        setPosts({ loaded: true, data: response })
+    }, [setPosts])
+
+    const fetchGasPostsByFrom = useCallback(async () => {
+        const response = await axios.get("http://localhost:8800/findGasPostByFrom").then(response => {
+            return response.data
+        }).catch(error => {
+            if (error.status !== 200) {
+                return null
+            }
+        });
+        setPosts({ loaded: true, data: response })
+    }, [setPosts])
+
+    const fetchGasPostsByTo = useCallback(async () => {
+        const response = await axios.get("http://localhost:8800/findGasPostByTo").then(response => {
+            return response.data
+        }).catch(error => {
+            if (error.status !== 200) {
+                return null
+            }
+        });
+        setPosts({ loaded: true, data: response })
+    }, [setPosts])
+
+    const fetchGasPostsByToAndFrom = useCallback(async () => {
+        const response = await axios.get("http://localhost:8800/findGasPostByToAndFrom").then(response => {
+            return response.data
+        }).catch(error => {
+            if (error.status !== 200) {
+                return null
+            }
+        });
+        setPosts({ loaded: true, data: response })
+    }, [setPosts])
+
     async function SearchForPosts() {
         useEffect(() => {
             if (!posts.loaded) {
 
-                if (to == null && from == null && gas == -1) {
+                if (to == null && from == null && gas == 0) {
                     fetchPosts()
                 }
-                else if (from == null && gas == -1 && to != null) {
+                else if (from == null && gas == 0 && to != null) {
                     fetchPostsByTo()
                 }
-                else if (to == null && gas == -1 && from != null) {
+                else if (to == null && gas == 0 && from != null) {
                     fetchPostsByFrom()
                 }
-                else if (gas == -1 && from != null && to != null) {
+                else if (gas == 0 && from != null && to != null) {
                     fetchPostsByToAndFrom()
                 }
+                else if(to == null && from == null && gas == 1) {
+                    fetchGasPosts()
+                }
+                else if (from == null && gas == 1 && to != null) {
+                    fetchGasPostsByTo()
+                }
+                else if (to == null && gas == 1 && from != null) {
+                    fetchGasPostsByFrom()
+                }
+                else if (gas == 1 && from != null && to != null) {
+                    fetchGasPostsByToAndFrom()
+                }
             }
-        }, [fetchPosts, fetchPostsByTo, fetchPostsByFrom, fetchPostsByToAndFrom, posts.loaded])
+        }, [fetchPosts, fetchPostsByTo, fetchPostsByFrom, fetchPostsByToAndFrom, fetchGasPosts, fetchGasPostsByTo, fetchGasPostsByFrom, fetchGasPostsByToAndFrom, posts.loaded])
     }
 
     return (

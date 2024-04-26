@@ -8,6 +8,10 @@ import TOKEN from './Login';
 
 
 const CreatePost = () => {
+  if (localStorage.getItem('user') === null) {
+    window.location.href = '/'
+  }
+
   const [postTitle, setTitle] = useState('')
   const [postFrom, setFrom] = useState('')
   const [gas, setGas] = useState(0)

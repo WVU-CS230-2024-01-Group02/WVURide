@@ -166,6 +166,33 @@ app.post("/findPostByFromAndTo", (req, res) => {
     })
 })
 
+app.post("/findGasPostByFrom", (req, res) => {
+    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.searchFrom}' AND postGas = 1`
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/findGasPostByTo", (req, res) => {
+    const q = `SELECT * FROM postsInfo WHERE postTo='${req.body.searchTo}' AND postGas = 1`
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/findGasPostByFromAndTo", (req, res) => {
+    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.searchFrom}' AND postTo='${req.body.searchTo}' AND postGas = 1`
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.post("/changePassword", (req, res) => {
     var hash = crypto.createHash('sha256')
     var saltedPassword = req.body.password + 'carpool'

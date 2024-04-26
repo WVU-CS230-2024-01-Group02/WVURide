@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 const Message = () => {
+    if (localStorage.getItem('user') === null) {
+        window.location.href = '/'
+    }
     return (
         <div className="msg-container">
             <div className="blue-rect">

@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 
 const Profile = () => {
+  if (localStorage.getItem('user') === null) {
+    window.location.href = '/'
+  }
   return (
     <div className='profile-container'>
       <div className="blue-rect">

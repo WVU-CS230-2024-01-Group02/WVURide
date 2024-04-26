@@ -2,14 +2,11 @@ import React from "react";
 import { BrowserRouter, Link, MemoryRouter } from "react-router-dom";
 import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, screen} from "@testing-library/react";
 
-
-import App from "./App";
 import CreateAccount from "./Components/CreateAccount";
 import CreatePost from "./Components/CreatePost";
 import Login from "./Components/Login";
-import { usePathname } from "next/navigation";
-import { getPathMatch } from "next/dist/shared/lib/router/utils/path-match";
-
+import HomePage from "./Components/HomePage";
+import Profile from "./Components/Profile";
 
 /*
 ***************** Create Account Tests, currently running 5/5 successful
@@ -129,6 +126,56 @@ describe("Navigation Component", () => {
     const createAccountLink = screen.getByText("Forgot Password?");
     fireEvent.click(createAccountLink);
     expect(container.innerHTML).toContain("/forgot-password");
+  
+  });
+
+  it("should navigate to create post from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/home"]}><HomePage /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("post-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/post");
+  
+  });
+
+  it("should navigate to search post from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/home"]}><HomePage /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("search-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/search");
+  
+  });
+
+  it("should navigate to message from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/home"]}><HomePage /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("message-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/message");
+  
+  });
+
+  it("should navigate to profile from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/home"]}><HomePage /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("profile-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/profile");
+  
+  });
+
+  it("should navigate to home from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/profile"]}><Profile /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("home-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/home");
   
   });
 });

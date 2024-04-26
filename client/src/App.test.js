@@ -1,12 +1,15 @@
 import React from "react";
 import { BrowserRouter, Link, MemoryRouter } from "react-router-dom";
 import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, screen} from "@testing-library/react";
-
+import SearchPosts from "./Components/SearchPosts";
+import axios from 'axios';
 import CreateAccount from "./Components/CreateAccount";
 import CreatePost from "./Components/CreatePost";
 import Login from "./Components/Login";
 import HomePage from "./Components/HomePage";
 import Profile from "./Components/Profile";
+import SearchPosts from "./Components/SearchPosts";
+
 
 /*
 ***************** Create Account Tests, currently running 5/5 successful
@@ -91,7 +94,7 @@ describe("CreateAccount Component", () => {
 
 
 /*
-***************** Navigation Testing, 
+***************** Navigation Testing, currently running 8/8 successful 
  */
 describe("Navigation Component", () => {
   it("should navigate stay on login upon incorrect credentials", async () => {
@@ -281,9 +284,4 @@ describe("Post Component", () => {
 
 });
 
-/*
-***************** Search Testing, 
- */
-describe("Search Component", () => {
-});
 

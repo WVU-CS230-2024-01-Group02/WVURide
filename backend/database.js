@@ -121,6 +121,15 @@ app.get("/retrieve5Posts", (req, res) => {
     })
 })
 
+app.get("/retrieveGasPosts", (req, res) => {
+    const q = "SELECT * FROM postsInfo WHERE gas=1"
+
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.post("/postAPost", (req, res) => {
     const q = `INSERT INTO postsInfo (postAuth, postFrom, postTo, postDesc, postGas, postTitle) VALUES ('${req.body.username}', '${req.body.from}', '${req.body.to}', '${req.body.desc}', ${req.body.gasFlag}, '${req.body.title}')`
 

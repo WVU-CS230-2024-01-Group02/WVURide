@@ -1,12 +1,14 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, unmount} from "@testing-library/react";
+import { BrowserRouter, Link, MemoryRouter } from "react-router-dom";
+import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, screen} from "@testing-library/react";
 
 
 import App from "./App";
 import CreateAccount from "./Components/CreateAccount";
 import CreatePost from "./Components/CreatePost";
 import Login from "./Components/Login";
+import { usePathname } from "next/navigation";
+import { getPathMatch } from "next/dist/shared/lib/router/utils/path-match";
 
 
 /*
@@ -109,6 +111,23 @@ describe("Navigation Component", () => {
       expect(global.alert).toHaveBeenCalled;
     });
   });
+
+  it("should navigate to create account from login", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={['/login']}>
+        <Login />
+      </MemoryRouter>
+    );
+  
+    const createAccountLink = screen.getByText('Create Account');
+  
+    fireEvent.click(createAccountLink);
+  
+    
+    expect(container.innerHTML).toContain('/createaccount');
+  
+  });
+  
 });
 
 

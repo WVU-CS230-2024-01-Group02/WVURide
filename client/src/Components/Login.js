@@ -70,7 +70,7 @@ function Login(props) {
               <div className="input-underline"></div>
             </label>
           </div>
-          <button type="submit" className="login-btn" onClick={checkLoginInfo}>Login</button>
+          <button type="submit" className="login-btn" data-testid="login-button" onClick={checkLoginInfo}>Login</button>
         </form>
         <div className="links">
           <span>Don't have an account?<br></br><Link to="/createaccount"><a href="/createaccount">Create Account</a></Link></span>

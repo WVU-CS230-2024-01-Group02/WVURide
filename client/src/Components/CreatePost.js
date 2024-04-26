@@ -73,6 +73,7 @@ const CreatePost = () => {
     }
     else {
       const response = await axios.post("http://localhost:8800/postAPost", {
+        //When unit testing comment the line below this comment out
         username: JSON.parse(localStorage.getItem("user")).username,
         from: postFrom,
         to: postTo,

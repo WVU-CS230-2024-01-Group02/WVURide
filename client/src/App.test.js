@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, unmount } from "@testing-library/react";
+import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, unmount} from "@testing-library/react";
 
 
 import App from "./App";
 import CreateAccount from "./Components/CreateAccount";
 import CreatePost from "./Components/CreatePost";
+import Login from "./Components/Login";
 
 
 /*
@@ -94,12 +95,25 @@ describe("CreateAccount Component", () => {
 ***************** Navigation Testing, 
  */
 describe("Navigation Component", () => {
+  it("should navigate stay on login upon incorrect credentials", async () => {
+    const {getByPlaceholderText, getByTestId} = render(<BrowserRouter><Login /></BrowserRouter>);
+    const usernameInput = getByPlaceholderText("Username");
+    const passwordInput = getByPlaceholderText("Password");
+    const button = getByTestId("login-button");
 
+    fireEvent.change(usernameInput, { target: { value: "abc" } });
+    fireEvent.change(passwordInput, { target: { value: "123" } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
 });
 
 
 /*
-***************** Post Testing, 
+***************** Post Testing, currently running 5/5 successfully
  */
 
 

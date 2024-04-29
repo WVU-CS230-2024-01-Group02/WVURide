@@ -20,17 +20,11 @@ function Post(props) {
     );
 }
 
-function SearchPosts() {
-    if (localStorage.getItem('user') === null) {
-        window.location.href = '/'
-    }
 
-    const [searchTo, setTo] = useState("nowhere")
-    const [searchFrom, setFrom] = useState("nowhere")
-    const [searchGas, setGas] = useState(-1)
+
+function SearchForPosts(searchTo, searchFrom, searchGas) {
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
-
     const fetchPosts = useCallback(async () => {
         const response = await axios.get("http://localhost:8800/searchPosts", {
             to: searchTo,
@@ -49,7 +43,45 @@ function SearchPosts() {
 
     useEffect(() => {
         if (!posts.loaded) {
-            fetchPosts
+            fetchPosts()
+        }
+    }, [fetchPosts, posts.loaded])
+
+    return posts
+}
+
+function SearchPosts() {
+    if (localStorage.getItem('user') === null) {
+        window.location.href = '/'
+    }
+
+    const [searchTo, setTo] = useState("nowhere")
+    const [searchFrom, setFrom] = useState("nowhere")
+    const [searchGas, setGas] = useState(-1)
+
+    //const [displayPosts, setDisplayPosts] = useState([])
+    const [posts, setPosts] = useState({ loaded: false, data: [] })
+
+    const fetchPosts = useCallback(async () => {
+        const response = await axios.post("http://localhost:8800/searchPosts", {
+            to: searchTo,
+            from: searchFrom,
+            gas: searchGas
+        }).then(response => {
+            return response.data
+        }).catch(error => {
+            if (error.status !== 200) {
+                return null
+            }
+        });
+        console.log(response)
+        setPosts({ loaded: true, data: response })
+    }, [setPosts])
+
+
+    useEffect(() => {
+        if (!posts.loaded) {
+            fetchPosts()
         }
     }, [fetchPosts, posts.loaded])
 
@@ -85,7 +117,7 @@ function SearchPosts() {
                         <span className="flag-button-sr no-gas-sr">No Gas</span>
                     </label>
                 </div>
-                <button type="submit" className="search-post-btn" onClick={e => SearchForPosts()}>Search</button>
+                <button type="button" className="search-post-btn" /*onClick={}*/>Search</button>
             </div>
 
             <div className="post-container">
@@ -95,7 +127,7 @@ function SearchPosts() {
                 </div>
 
                 <ul className="post-list">
-                    {posts.loaded && posts.data.length > 0 ? posts.data.map(post => {
+                    {posts.loaded == true && posts.data.length > 0 ? posts.data.map(post => {
                         console.log(post)
                         return <Post
                             text={post.postDesc}

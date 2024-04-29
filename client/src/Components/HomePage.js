@@ -13,6 +13,9 @@ function Post(post) {
                     <h1 className="title">{post.title}</h1>
                     <p className="post-desc">{post.text}</p>
                     <p className="post-time">{post.time}</p>
+                    <p className="post-from">{post.postFrom}</p>
+                    <p className="post-to">{post.postTo}</p>
+                    <p className="post-gas">{post.postGas}</p>
                 </div>
                 <button className="posts-pfp" />
                 <p className="user-name">{post.userName}</p>
@@ -28,7 +31,7 @@ function Post(post) {
 
 
 function HomePage() {
-    if(localStorage.getItem('user') === null){
+    if (localStorage.getItem('user') === null) {
         window.location.href = '/'
     }
 
@@ -83,7 +86,10 @@ function HomePage() {
                             time={post.postTime}
                             userName={post.postAuth}
                             title={post.postTitle}
-                            
+                            from={post.postFrom}
+                            to={post.postTo}
+                            gas={post.postGas}
+
                         />
                     }) : null}
                 </ul>

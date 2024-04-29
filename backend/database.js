@@ -140,13 +140,12 @@ app.get("/postAPost", (req, res) => {
 })
 
 app.post("/searchPosts", (req, res) => {
-    console.log("gets here")
     var toAdd = "postsInfo"
-    if (!(req.body.to == "nowhere" || req.body.from == "nowhere" || req.body.gas == -1)) {
-        if (req.body.to !== "nowhere") {
+    if ((req.body.to !== "" || req.body.from !== "" || req.body.gas !== -1)) {
+        if (req.body.to !== "") {
             toAdd += ` WHERE postTo = '${req.body.to}'`
         }
-        if (req.body.from !== "nowhere") {
+        if (req.body.from !== "") {
             if (toAdd === "postsInfo") {
                 toAdd += ` WHERE postFrom = '${req.body.from}'`
             }
@@ -165,7 +164,6 @@ app.post("/searchPosts", (req, res) => {
     }
 
     const q = `SELECT * FROM ` + toAdd
-    console.log(q)
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)

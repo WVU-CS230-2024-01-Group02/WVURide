@@ -4,17 +4,21 @@ import "./SearchPosts.css"
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function Post(props) {
+function Post(post) {
     return (
         <li className="post-item">
             <div className="post-content">
                 <div className="post-text">
-                    <h1 className="post-title">{props.title}</h1>
-                    <p>{props.text}</p>
-                    <p className="post-time">{props.time}</p>
+                    <h1 className="title">{post.title}</h1>
+                    <p className="post-desc">{post.text}</p>
+                    <p className="post-time">{post.time}</p>
+                    <p className="post-from">{post.postFrom}</p>
+                    <p className="post-to">{post.postTo}</p>
+                    <p className="post-gas">{post.postGas}</p>
                 </div>
                 <button className="posts-pfp" />
-                <p className="user-name">{props.userName}</p>
+                <p className="user-name">{post.userName}</p>
+                <button className="message-btn">Talk</button>
             </div>
         </li>
     );
@@ -22,7 +26,7 @@ function Post(props) {
 
 
 
-function SearchForPosts(searchTo, searchFrom, searchGas) {
+/*function SearchForPosts(searchTo, searchFrom, searchGas) {
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
     const fetchPosts = useCallback(async () => {
@@ -48,21 +52,44 @@ function SearchForPosts(searchTo, searchFrom, searchGas) {
     }, [fetchPosts, posts.loaded])
 
     return posts
-}
+}*/
 
 function SearchPosts() {
     if (localStorage.getItem('user') === null) {
         window.location.href = '/'
     }
 
-    const [searchTo, setTo] = useState("nowhere")
-    const [searchFrom, setFrom] = useState("nowhere")
+    const [searchTo, setTo] = useState("")
+    //console.log(searchTo)
+    const [searchFrom, setFrom] = useState("")
+    //console.log(searchFrom)
     const [searchGas, setGas] = useState(-1)
+    console.log(searchGas)
 
-    //const [displayPosts, setDisplayPosts] = useState([])
+    function inputGas(e) {
+        if (searchGas === -1 || searchGas === 0) {
+            setGas(1)
+        }
+        else {
+            setGas(-1)
+        }
+    }
+    function inputNoGas(e) {
+        if (searchGas === -1 || searchGas === 1) {
+            setGas(0)
+        }
+        else {
+            setGas(-1)
+        }
+    }
+
+
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 
     const fetchPosts = useCallback(async () => {
+        console.log(searchTo)
+        console.log(searchFrom)
+        console.log(searchGas)
         const response = await axios.post("http://localhost:8800/searchPosts", {
             to: searchTo,
             from: searchFrom,
@@ -76,7 +103,7 @@ function SearchPosts() {
         });
         console.log(response)
         setPosts({ loaded: true, data: response })
-    }, [setPosts])
+    }, [setPosts, searchTo, searchFrom, searchGas])
 
 
     useEffect(() => {
@@ -101,24 +128,24 @@ function SearchPosts() {
 
             <div className="searching-container">
                 <div className="search-bar-from">
-                    <input type="text" className="search-input-fm" placeholder="From:" required onInput={e => setFrom(e.target.value)}></input>
+                    <input type="text" className="search-input-fm" placeholder="From:" onInput={e => setFrom(e.target.value)}></input>
                 </div>
                 <div className="search-bar-to">
-                    <input type="text" className="search-input-to" placeholder="To:" required onInput={e => setTo(e.target.value)}></input>
+                    <input type="text" className="search-input-to" placeholder="To:" onInput={e => setTo(e.target.value)}></input>
                 </div>
 
                 <div className="filter-btns-sr">
                     <label>
-                        <input type="checkbox" name="gas" className="gas-sr" onInput={e => setGas(1)} />
+                        <input type="checkbox" name="gas" className="gas-sr" onInput={e => inputGas()} />
                         <span className="flag-button-sr gas-sr" >Gas</span>
                     </label>
                     <label>
-                        <input type="checkbox" name="no-gas" className="no-gas-sr" onInput={e => setGas(0)} />
+                        <input type="checkbox" name="no-gas" className="no-gas-sr" onInput={e => inputNoGas(0)} />
                         <span className="flag-button-sr no-gas-sr">No Gas</span>
                     </label>
                 </div>
-                <button type="button" className="search-post-btn" /*onClick={}*/>Search</button>
-            </div>
+                <button type="button" className="search-post-btn" onClick={e => fetchPosts()}>Search</button>
+            </div >
 
             <div className="post-container">
                 <div className="title-container">
@@ -127,18 +154,22 @@ function SearchPosts() {
                 </div>
 
                 <ul className="post-list">
-                    {posts.loaded == true && posts.data.length > 0 ? posts.data.map(post => {
+                    {posts.loaded && posts.data.length > 0 ? posts.data.map(post => {
                         console.log(post)
                         return <Post
                             text={post.postDesc}
                             time={post.postTime}
                             userName={post.postAuth}
                             title={post.postTitle}
+                            from={post.postFrom}
+                            to={post.postTo}
+                            gas={post.postGas}
+
                         />
                     }) : null}
                 </ul>
             </div>
-        </div>
+        </div >
     )
 }
 

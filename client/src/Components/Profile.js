@@ -17,8 +17,38 @@ const Profile = () => {
           <Link to="/post"><button className="post-btn"></button></Link>
         </div>
       </div>
-    </div>
 
+      <div className='pfp-container'>
+        <div className='pf-pic'>
+          <div className='full-nm'>Full Name</div>
+          <div className='usr-nm'>Username</div>
+        </div>
+
+      </div>
+      
+      <div className='info-box'>
+        <div className="title-container">
+          <div className="post-title">Information</div>
+          <div className="post-underline-info"></div>
+        </div>
+      </div>
+
+      <div className='bio-box'>
+        <div className='title-container'>
+          <div className='post-title'>Bio</div>
+          <div className='post-underline-bio'></div>
+        </div>
+      </div>
+
+      <div className='recent-box'>
+        <div className='title-container'>
+          <div className='post-title'>Recent</div>
+          <div className='post-underline-recent'></div>
+        </div>
+      </div>
+
+
+    </div>
   )
 }
 

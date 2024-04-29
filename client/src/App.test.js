@@ -1,17 +1,21 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText } from "@testing-library/react";
-
-
-import App from "./App";
+import { BrowserRouter, Link, MemoryRouter } from "react-router-dom";
+import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, screen} from "@testing-library/react";
+import SearchPosts from "./Components/SearchPosts";
+import axios from 'axios';
 import CreateAccount from "./Components/CreateAccount";
 import CreatePost from "./Components/CreatePost";
+import Login from "./Components/Login";
+import HomePage from "./Components/HomePage";
+import Profile from "./Components/Profile";
+import SearchPosts from "./Components/SearchPosts";
 
 
 /*
 ***************** Create Account Tests, currently running 5/5 successful
  */
 describe("CreateAccount Component", () => {
+
   it("should display error message for invalid email", async () => {
     const { getByText, getByPlaceholderText, getByTestId } = render(<BrowserRouter><CreateAccount /></BrowserRouter>);
     const emailInput = getByPlaceholderText("Mix Email");
@@ -90,21 +94,105 @@ describe("CreateAccount Component", () => {
 
 
 /*
-***************** Navigation Testing, 
+***************** Navigation Testing, currently running 8/8 successful 
  */
 describe("Navigation Component", () => {
+  it("should navigate stay on login upon incorrect credentials", async () => {
+    const {getByPlaceholderText, getByTestId} = render(<BrowserRouter><Login /></BrowserRouter>);
+    const usernameInput = getByPlaceholderText("Username");
+    const passwordInput = getByPlaceholderText("Password");
+    const button = getByTestId("login-button");
 
+    fireEvent.change(usernameInput, { target: { value: "abc" } });
+    fireEvent.change(passwordInput, { target: { value: "123" } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalled;
+    });
+  });
+
+  it("should navigate to create account from login", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/login"]}><Login /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByText("Create Account");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/createaccount");
+  
+  });
+  
+  it("should navigate to forgot password from login", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/login"]}><Login /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByText("Forgot Password?");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/forgot-password");
+  
+  });
+
+  it("should navigate to create post from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/home"]}><HomePage /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("post-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/post");
+  
+  });
+
+  it("should navigate to search post from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/home"]}><HomePage /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("search-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/search");
+  
+  });
+
+  it("should navigate to message from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/home"]}><HomePage /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("message-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/message");
+  
+  });
+
+  it("should navigate to profile from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/home"]}><HomePage /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("profile-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/profile");
+  
+  });
+
+  it("should navigate to home from navbar", async () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/profile"]}><Profile /></MemoryRouter>
+    );
+    const createAccountLink = screen.getByTestId("home-button");
+    fireEvent.click(createAccountLink);
+    expect(container.innerHTML).toContain("/home");
+  
+  });
 });
 
 
 /*
-***************** Post Testing, 
+***************** Post Testing, currently running 5/5 successfully
  */
 
-/*
+
 describe("Post Component", () => {
+
   it("should display error message for null to value", async () => {
-    const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
+    const {getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
     const toInput = getByPlaceholderText("To:");
     const button = getByText("Create Post");
 
@@ -115,7 +203,7 @@ describe("Post Component", () => {
       expect(global.alert).toHaveBeenCalled;
     });
   });
-/*
+
   it("should display error message for too long to value", async () => {
     const { getByText, getByPlaceholderText} = render(<BrowserRouter><CreatePost/></BrowserRouter>);
     const toInput = getByPlaceholderText("To:");
@@ -194,12 +282,6 @@ describe("Post Component", () => {
     });
   });
 
-*/
-//});
-
-/*
-***************** Search Testing, 
- */
-describe("Search Component", () => {
 });
+
 

@@ -3,11 +3,14 @@ import { useState } from "react";
 import "./CreatePost.css";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import TOKEN from './Login';
 
 
 
 const CreatePost = () => {
+  if (localStorage.getItem('user') === null) {
+    window.location.href = '/'
+  }
+
   const [postTitle, setTitle] = useState('')
   const [postFrom, setFrom] = useState('')
   const [gas, setGas] = useState(0)
@@ -73,6 +76,7 @@ const CreatePost = () => {
     }
     else {
       const response = await axios.post("http://localhost:8800/postAPost", {
+        //When unit testing comment the line below this comment out
         username: JSON.parse(localStorage.getItem("user")).username,
         from: postFrom,
         to: postTo,

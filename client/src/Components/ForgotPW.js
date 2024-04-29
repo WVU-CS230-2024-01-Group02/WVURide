@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 
 const ForgotPW = () => {
+    if (localStorage.getItem('user') === null) {
+        window.location.href = '/'
+    }
     return (
         <div className='fp-container'>
             <div className="fp-function">
@@ -35,15 +38,15 @@ const ForgotPW = () => {
 
                 </form>
                 <div className="links">
-                <span><Link to="/"><a href="/login">Go back to login.</a></Link></span>
-            </div>
-            <div className="map-container-ca">
-                <div className="map-design-ca">
-                    <div className="blue-bg-ca">
-                    </div>
+                    <span><Link to="/"><a href="/login">Go back to login.</a></Link></span>
                 </div>
-                <div className="wvu-logo-ca"></div>
-            </div>
+                <div className="map-container-ca">
+                    <div className="map-design-ca">
+                        <div className="blue-bg-ca">
+                        </div>
+                    </div>
+                    <div className="wvu-logo-ca"></div>
+                </div>
             </div>
             <div className="map-container-fp">
                 <div className="map-design-fp">

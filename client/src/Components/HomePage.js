@@ -3,9 +3,15 @@ import "./HomePage.css";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./CreatePost.css"
 
 function Post(post) {
-    console.log(post)
+    console.log(post);
+    // Determine the class name for the gas flag based on the postGas value
+    const gasFlagClass = post.gas === 0 ? 'flag-button-hm no-gas-hm' : 'flag-button-hm gas-hm';
+    const gasFlagPrint = post.gas === 0 ? 'No Gas' : 'Gas';
+
+// style={{color:black;}}
     return (
         <li className="post-item">
             <div className="post-content">
@@ -13,9 +19,9 @@ function Post(post) {
                     <h1 className="title">{post.title}</h1>
                     <p className="post-desc">{post.text}</p>
                     <p className="post-time">{post.time}</p>
-                    <p className="post-from">{post.postFrom}</p>
-                    <p className="post-to">{post.postTo}</p>
-                    <p className="post-gas">{post.postGas}</p>
+                    <p className="post-from">From: {post.from}</p>
+                    <p className="post-to">To: {post.to}</p>
+                    <div className={gasFlagClass}>{gasFlagPrint}</div>
                 </div>
                 <button className="posts-pfp" />
                 <p className="user-name">{post.userName}</p>
@@ -24,6 +30,7 @@ function Post(post) {
         </li>
     );
 }
+
 
 //async function getPosts(){
 //    return await 

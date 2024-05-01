@@ -10,12 +10,10 @@ const transporter = nodemailer.createTransport({
   port: 587,  // Use 587 because it ise used for encrypted email
   secure: false, // Use `true` for port 465, `false` for all other ports  / 465 is deprecated
   auth: {
-    user: "username", //gmail username
-    pass: "password", //gmail app password
+    user: OUR_EMAIL, //gmail username
+    pass: OUR_PASSWORD, //gmail app password
   },
 });
-
-
 
 
 
@@ -35,7 +33,7 @@ app.post('/sendMagicLink', (req, res) => {
   // send mail with defined transport object
   const mailOptions = {
     from: '"WVURide" <WVURide@gmail.com>', // Our email for WVURide
-    to: "useremail@mail.com", // list of receivers
+    to: email, // list of receivers
     subject: "Account Verification", // Subject line
     text: `Click this link to verify your account: ${magicLink}`
   };

@@ -85,10 +85,6 @@ function HomePage() {
                 </div>
             </div>
             <div className="search-container">
-                {/* <div className="search-bar">
-                    <input type="text" placeholder="Where to?..." className="search-input" />
-                    <Link to="/search"><button className="search-btn"></button></Link> 
-                </div> */}
             </div>
             <div className="post-container">
                 <div className="title-container">

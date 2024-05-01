@@ -9,7 +9,8 @@ import axios from 'axios';
  *
  */
 function CreateAccount() {
-
+    
+    // State variables to manage form input values
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
@@ -19,20 +20,28 @@ function CreateAccount() {
 
 
     /**
-     * Checks that all inputs match the required criteria and checks if the email is already in use then posts the new user to the database and reroutes the user to the login page
+     * Checks that all inputs match the required criteria and checks if the email 
+     * is already in use then posts the new user to the database and reroutes 
+     * the user to the login page
      *
      * @param {event} event the event to preventDefault()
      */
     async function checkForm(event) {
-        event.preventDefault()
+        event.preventDefault(); // Preventing default form submission behavior
+        // Extracting domain from email address
         const domain = email.substring(email.indexOf("@") + 1)
         const targetDomain = "mix.wvu.edu"
+
+        // Retrieving form input elements
         const element1 = document.getElementById("email")
         const element2 = document.getElementById("password")
         const element3 = document.getElementById("confirm")
         const element4 = document.getElementById("name")
         const element5 = document.getElementById("username")
+
+        // Validating form inputs
         if (domain !== targetDomain || email == "" || confirm == "" || password == "" || confirm !== password || name == "" || username == "") {
+            // Handling invalid inputs
             var errorMsg = ""
             if (domain !== targetDomain || email == "") {
                 element1.style.color = 'red'
@@ -84,6 +93,7 @@ function CreateAccount() {
             return
         }
         else {
+            // Valid form inputs
             const response = await axios.post("http://localhost:8800/login", {
                 username: username,
             }).then(response => {
@@ -96,20 +106,24 @@ function CreateAccount() {
                 }
             });
             console.log(response)
-
+            
+            // Check if the email exists in the database 
             const emailResponse = await axios.post("http://localhost:8800/checkEmail", {
                 email: email,
             }).then(response => {
+                // If successful then insert into the dataabse
                 console.log(response.status)
                 console.log(response.data)
                 return response.data
             }).catch(error => {
+                // Throw an error if unsuccessful
                 if (error.status !== 200) {
                     return null
                 }
             });
             console.log(emailResponse)
-
+            // If email and username are already present then it should send invalid alert
+            // This is to prevent duplicate users
             if (response.length != 0 || emailResponse.length != 0) {
                 if (emailResponse != 0) {
                     alert("Email already in use.")
@@ -124,13 +138,16 @@ function CreateAccount() {
 
             }
 
-
+            // If the invalid conditions are not met than all 
+            // of the elements should change to default black
             element1.style.color = 'black'
             element2.style.color = 'black'
             element3.style.color = 'black'
             element4.style.color = 'black'
             element5.style.color = 'black'
+            // Post request to create a new user to the database
             const sendResponse = await axios.post("http://localhost:8800/users", {
+                // Elements and values linked to the db table columns
                 email: email,
                 password: password,
                 fullName: name,
@@ -138,6 +155,7 @@ function CreateAccount() {
             }).then(response => {
                 return response;
             });
+            // Redirect the user to the login page to login using their newly created user info
             window.location.href = "/"
             return
 

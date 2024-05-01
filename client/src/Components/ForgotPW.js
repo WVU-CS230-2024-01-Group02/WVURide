@@ -13,7 +13,6 @@ const ForgotPW = () => {
     const changePass = async (event) => {
         event.preventDefault();
 
-        // Check if passwords match
         if (password !== confirm) {
             alert("Passwords do not match");
             return;
@@ -21,20 +20,18 @@ const ForgotPW = () => {
 
         try {
             const response = await axios.post("http://localhost:8800/changePassword", {
-                username: email, // Assuming email is the username for changing password
+                username: email, 
                 password: password
             });
             console.log(response.data);
 
-            window.location.href = "/login";
+            window.location.href = "/";
         } catch (error) {
             console.error(error);
             alert("Failed to reset password");
         }
     };
 
-
-    const ForgotPW = () => {
 
         return (
             <div className='fp-container'>
@@ -86,5 +83,4 @@ const ForgotPW = () => {
             </div>
         )
     }
-}
 export default ForgotPW;

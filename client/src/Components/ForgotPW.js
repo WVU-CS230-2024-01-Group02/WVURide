@@ -33,8 +33,6 @@ const ForgotPW = () => {
     };
 
 
-    const ForgotPW = () => {
-
     return (
         <div className='fp-container'>
             <div className="fp-function">
@@ -85,5 +83,4 @@ const ForgotPW = () => {
             </div>
         )
     }
-}
 export default ForgotPW;

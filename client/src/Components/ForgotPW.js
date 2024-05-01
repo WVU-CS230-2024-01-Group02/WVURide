@@ -1,8 +1,41 @@
 import React from 'react';
+import {useState} from 'react';
 import './ForgotPW.css';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 
+const ForgotPW = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
+    
+    const changePass = async (event) => {
+        event.preventDefault();
+        
+        // Check if passwords match
+        if (password !== confirm) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        try {
+            const response = await axios.post("http://localhost:8800/changePassword", {
+                username: email, // Assuming email is the username for changing password
+                password: password
+            });
+            console.log(response.data);
+            
+            window.location.href = "/login";
+        } catch (error) {
+            console.error(error);
+            alert("Failed to reset password");
+        }
+    };
+
+    if (localStorage.getItem('user') === null) {
+        window.location.href = '/'
+    }
 
 const ForgotPW = () => {
     if (localStorage.getItem('user') === null) {
@@ -34,7 +67,7 @@ const ForgotPW = () => {
                         <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password"></input>
                         <div className="input-underline"></div>
                     </div>
-                    <button type="submit" className="ca-btn">Reset your password</button>
+                    <button type="submit" className="ca-btn" onClick={changePass}>Reset your password</button>
 
                 </form>
                 <div className="links">
@@ -58,5 +91,5 @@ const ForgotPW = () => {
         </div>
     )
 }
-
+}
 export default ForgotPW;

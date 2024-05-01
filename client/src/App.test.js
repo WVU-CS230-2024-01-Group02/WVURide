@@ -2,13 +2,13 @@ import React from "react";
 import { BrowserRouter, Link, MemoryRouter } from "react-router-dom";
 import { render, fireEvent, waitFor, getByTestId, getAllByText, getByText, screen} from "@testing-library/react";
 import SearchPosts from "./Components/SearchPosts";
-import axios from 'axios';
+
 import CreateAccount from "./Components/CreateAccount";
 import CreatePost from "./Components/CreatePost";
 import Login from "./Components/Login";
 import HomePage from "./Components/HomePage";
 import Profile from "./Components/Profile";
-import SearchPosts from "./Components/SearchPosts";
+
 
 
 /*

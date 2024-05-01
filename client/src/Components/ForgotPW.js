@@ -45,20 +45,20 @@ const ForgotPW = () => {
 
                     <div className='form-group'>
                         <label htmlFor='email'>
-                            <input type="email" id="email" name="email" required="required" placeholder="Mix Email" />
+                            <input type="email" id="email" name="email" required="required" placeholder="Mix Email" onInput={e => setEmail(e.target.value)} />
                             <div className="input-underline" />
                         </label>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="password"></label>
-                        <input type="password" id="password" name="password" required="required" placeholder="Password"></input>
+                        <input type="password" id="password" name="password" required="required" placeholder="Password" onInput={e => setPassword(e.target.value)}></input>
                         <div className="input-underline"></div>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="confirm"></label>
-                        <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password"></input>
+                        <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password" onInput={e => setConfirm(e.target.value)}></input>
                         <div className="input-underline"></div>
                     </div>
                     <button type="submit" className="ca-btn" onClick={changePass}>Reset your password</button>

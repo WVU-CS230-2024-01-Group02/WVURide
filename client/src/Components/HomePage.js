@@ -3,9 +3,20 @@ import "./HomePage.css";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./CreatePost.css"
 
+/**
+ * Returns a post HTML object
+ *
+ * @param {post} post the post to be made into an HTML object to display on the home page
+ */
 function Post(post) {
-    console.log(post)
+    console.log(post);
+    // Determine the class name for the gas flag based on the postGas value
+    const gasFlagClass = post.gas === 0 ? 'flag-button-hm no-gas-hm' : 'flag-button-hm gas-hm';
+    const gasFlagPrint = post.gas === 0 ? 'No Gas' : 'Gas';
+
+    // style={{color:black;}}
     return (
         <li className="post-item">
             <div className="post-content">
@@ -13,6 +24,9 @@ function Post(post) {
                     <h1 className="title">{post.title}</h1>
                     <p className="post-desc">{post.text}</p>
                     <p className="post-time">{post.time}</p>
+                    <p className="post-from">From: {post.from}</p>
+                    <p className="post-to">To: {post.to}</p>
+                    <div className={gasFlagClass}>{gasFlagPrint}</div>
                 </div>
                 <button className="posts-pfp" />
                 <p className="user-name">{post.userName}</p>
@@ -22,18 +36,22 @@ function Post(post) {
     );
 }
 
-//async function getPosts(){
-//    return await 
-//}
 
 
+
+/**
+ * Returns the Home page
+ */
 function HomePage() {
-    if(localStorage.getItem('user') === null){
+    if (localStorage.getItem('user') === null) {
         window.location.href = '/'
     }
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 
+    /**
+     * Returns the response from a get request for a list of posts
+     */
     const fetchPosts = useCallback(async () => {
         const response = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
             return response.data
@@ -45,6 +63,9 @@ function HomePage() {
         setPosts({ loaded: true, data: response })
     }, [setPosts])
 
+    /**
+     * Calls fetchPosts if the useState for posts is not currently loaded with data
+     */
     useEffect(() => {
         if (!posts.loaded) {
             fetchPosts()
@@ -83,7 +104,10 @@ function HomePage() {
                             time={post.postTime}
                             userName={post.postAuth}
                             title={post.postTitle}
-                            
+                            from={post.postFrom}
+                            to={post.postTo}
+                            gas={post.postGas}
+
                         />
                     }) : null}
                 </ul>

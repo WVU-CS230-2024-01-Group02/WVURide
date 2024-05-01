@@ -139,53 +139,31 @@ app.get("/postAPost", (req, res) => {
     })
 })
 
-app.post("/findPostByFrom", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.searchFrom}'`
+app.post("/searchPosts", (req, res) => {
+    var toAdd = "postsInfo"
+    if ((req.body.to !== "" || req.body.from !== "" || req.body.gas !== -1)) {
+        if (req.body.to !== "") {
+            toAdd += ` WHERE postTo = '${req.body.to}'`
+        }
+        if (req.body.from !== "") {
+            if (toAdd === "postsInfo") {
+                toAdd += ` WHERE postFrom = '${req.body.from}'`
+            }
+            else {
+                toAdd += ` AND postFrom = '${req.body.from}'`
+            }
+        }
+        if (req.body.gas !== -1) {
+            if (toAdd === "postsInfo") {
+                toAdd += ` WHERE postGas = ${req.body.gas}`
+            }
+            else {
+                toAdd += ` AND postGas = ${req.body.gas}`
+            }
+        }
+    }
 
-    db.query(q, (err, data) => {
-        if (err) return res.json(err)
-        return res.json(data)
-    })
-})
-
-app.post("/findPostByTo", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postTo='${req.body.searchTo}'`
-
-    db.query(q, (err, data) => {
-        if (err) return res.json(err)
-        return res.json(data)
-    })
-})
-
-app.post("/findPostByFromAndTo", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.searchFrom}' AND postTo='${req.body.searchTo}'`
-
-    db.query(q, (err, data) => {
-        if (err) return res.json(err)
-        return res.json(data)
-    })
-})
-
-app.post("/findGasPostByFrom", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.searchFrom}' AND postGas = 1`
-
-    db.query(q, (err, data) => {
-        if (err) return res.json(err)
-        return res.json(data)
-    })
-})
-
-app.post("/findGasPostByTo", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postTo='${req.body.searchTo}' AND postGas = 1`
-
-    db.query(q, (err, data) => {
-        if (err) return res.json(err)
-        return res.json(data)
-    })
-})
-
-app.post("/findGasPostByFromAndTo", (req, res) => {
-    const q = `SELECT * FROM postsInfo WHERE postFrom='${req.body.searchFrom}' AND postTo='${req.body.searchTo}' AND postGas = 1`
+    const q = `SELECT * FROM ` + toAdd
 
     db.query(q, (err, data) => {
         if (err) return res.json(err)

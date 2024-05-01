@@ -4,96 +4,107 @@ import "./SearchPosts.css"
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function Post(props) {
+/**
+ * Returns a post HTML object
+ *
+ * @param {post} post the post to be made into an HTML object to display on the home page
+ */
+function Post(post) {
+    const gasFlagClass = post.gas === 0 ? 'flag-button-hm no-gas-hm' : 'flag-button-hm gas-hm';
+
+    const gasFlagPrint = post.gas === 0 ? 'No Gas' : 'Gas';
+
     return (
         <li className="post-item">
             <div className="post-content">
                 <div className="post-text">
-                    <h1 className="post-title">{props.title}</h1>
-                    <p>{props.text}</p>
-                    <p className="post-time">{props.time}</p>
+                    <h1 className="title">{post.title}</h1>
+                    <p className="post-desc">{post.text}</p>
+                    <p className="post-time">{post.time}</p>
+                    <p className="post-from">From: {post.from}</p>
+                    <p className="post-to">To: {post.to}</p>
+                    <div className={gasFlagClass}>{gasFlagPrint}</div>
                 </div>
                 <button className="posts-pfp" />
-                <p className="user-name">{props.userName}</p>
+                <p className="user-name">{post.userName}</p>
+                <button className="message-btn">Talk</button>
             </div>
         </li>
     );
 }
 
-const SearchPosts = () => {
+/**
+ * Returns the Search Posts page
+ */
+function SearchPosts() {
     if (localStorage.getItem('user') === null) {
         window.location.href = '/'
     }
 
-    const [to, setTo] = useState("")
-    const [from, setFrom] = useState("")
-    const [gas, setGas] = useState(-1)
+    const [searchTo, setTo] = useState("")
+    //console.log(searchTo)
+    const [searchFrom, setFrom] = useState("")
+    //console.log(searchFrom)
+    const [searchGas, setGas] = useState(-1)
+    console.log(searchGas)
+
+    /**
+     * Returns x raised to the n-th power.
+     *
+     * @param {event} e to preventDefault()
+     */
+    function inputGas(e) {
+        if (searchGas === -1 || searchGas === 0) {
+            setGas(1)
+        }
+        else {
+            setGas(-1)
+        }
+    }
+    /**
+     * Returns x raised to the n-th power.
+     *
+     * @param {event} e to preventDefault()
+     */
+    function inputNoGas(e) {
+        if (searchGas === -1 || searchGas === 1) {
+            setGas(0)
+        }
+        else {
+            setGas(-1)
+        }
+    }
+
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 
+    /**
+     * Returns the response from a get request for a list of posts
+     */
     const fetchPosts = useCallback(async () => {
-        const response = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
+        const response = await axios.post("http://localhost:8800/searchPosts", {
+            to: searchTo,
+            from: searchFrom,
+            gas: searchGas
+        }).then(response => {
             return response.data
         }).catch(error => {
             if (error.status !== 200) {
                 return null
             }
         });
+        console.log(response)
         setPosts({ loaded: true, data: response })
-    }, [setPosts])
+    }, [setPosts, searchTo, searchFrom, searchGas])
 
-    const fetchPostsByFrom = useCallback(async () => {
-        const response = await axios.get("http://localhost:8800/findPostByFrom").then(response => {
-            return response.data
-        }).catch(error => {
-            if (error.status !== 200) {
-                return null
-            }
-        });
-        setPosts({ loaded: true, data: response })
-    }, [setPosts])
-
-    const fetchPostsByTo = useCallback(async () => {
-        const response = await axios.get("http://localhost:8800/findPostByTo").then(response => {
-            return response.data
-        }).catch(error => {
-            if (error.status !== 200) {
-                return null
-            }
-        });
-        setPosts({ loaded: true, data: response })
-    }, [setPosts])
-
-    const fetchPostsByToAndFrom = useCallback(async () => {
-        const response = await axios.get("http://localhost:8800/findPostByToAndFrom").then(response => {
-            return response.data
-        }).catch(error => {
-            if (error.status !== 200) {
-                return null
-            }
-        });
-        setPosts({ loaded: true, data: response })
-    }, [setPosts])
-
-    async function SearchForPosts() {
-        useEffect(() => {
-            if (!posts.loaded) {
-
-                if (to == null && from == null && gas == -1) {
-                    fetchPosts()
-                }
-                else if (from == null && gas == -1 && to != null) {
-                    fetchPostsByTo()
-                }
-                else if (to == null && gas == -1 && from != null) {
-                    fetchPostsByFrom()
-                }
-                else if (gas == -1 && from != null && to != null) {
-                    fetchPostsByToAndFrom()
-                }
-            }
-        }, [fetchPosts, fetchPostsByTo, fetchPostsByFrom, fetchPostsByToAndFrom, posts.loaded])
-    }
+    /**
+     * Calls fetchPosts if the useState for posts is not currently loaded with data
+     */
+    useEffect(() => {
+        if (!posts.loaded) {
+            fetchPosts()
+        }
+    }, [fetchPosts, posts.loaded])
 
     return (
         <div className='search-posts-container'>
@@ -111,24 +122,24 @@ const SearchPosts = () => {
 
             <div className="searching-container">
                 <div className="search-bar-from">
-                    <input type="text" className="search-input-fm" placeholder="From:" required onInput={e => setFrom(e.target.value)}></input>
+                    <input type="text" className="search-input-fm" placeholder="From:" onInput={e => setFrom(e.target.value)}></input>
                 </div>
                 <div className="search-bar-to">
-                    <input type="text" className="search-input-to" placeholder="To:" required onInput={e => setTo(e.target.value)}></input>
+                    <input type="text" className="search-input-to" placeholder="To:" onInput={e => setTo(e.target.value)}></input>
                 </div>
 
                 <div className="filter-btns-sr">
                     <label>
-                        <input type="checkbox" name="gas" className="gas-sr" onInput={e => setGas(1)} />
+                        <input type="checkbox" name="gas" className="gas-sr" onInput={e => inputGas()} />
                         <span className="flag-button-sr gas-sr" >Gas</span>
                     </label>
                     <label>
-                        <input type="checkbox" name="no-gas" className="no-gas-sr" onInput={e => setGas(0)} />
+                        <input type="checkbox" name="no-gas" className="no-gas-sr" onInput={e => inputNoGas(0)} />
                         <span className="flag-button-sr no-gas-sr">No Gas</span>
                     </label>
                 </div>
-                <button type="submit" className="search-post-btn" onClick={e => SearchForPosts()}>Search</button>
-            </div>
+                <button type="button" className="search-post-btn" onClick={e => fetchPosts()}>Search</button>
+            </div >
 
             <div className="post-container">
                 <div className="title-container">
@@ -144,11 +155,15 @@ const SearchPosts = () => {
                             time={post.postTime}
                             userName={post.postAuth}
                             title={post.postTitle}
+                            from={post.postFrom}
+                            to={post.postTo}
+                            gas={post.postGas}
+
                         />
                     }) : null}
                 </ul>
             </div>
-        </div>
+        </div >
     )
 }
 

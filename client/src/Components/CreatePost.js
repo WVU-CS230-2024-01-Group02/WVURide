@@ -3,10 +3,11 @@ import { useState } from "react";
 import "./CreatePost.css";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import TOKEN from './Login';
 
 
-
+/**
+ * Returns the Create Post page
+ */
 const CreatePost = () => {
   if (localStorage.getItem('user') === null) {
     window.location.href = '/'
@@ -18,14 +19,20 @@ const CreatePost = () => {
   const [postDesc, setDesc] = useState('')
   const [postTo, setTo] = useState('')
 
+
+  /**
+ * Checks to see if all input matches the requirements and then if it passes posts the post to the database.
+ *
+ * @param {event} e to precentDefault()
+ */
   async function onPost(e) {
     e.preventDefault();
-    if (postTitle == null || postFrom == null || postTo == null || postTitle.length > 45 || postDesc.length > 500 || postTo.length > 45 || postFrom.length > 45) {
+    if (postTitle == '' || postFrom == '' || postTo == '' || postTitle.length > 45 || postDesc.length > 500 || postTo.length > 45 || postFrom.length > 45) {
       var errMsg = ""
-      if (postTitle == null) {
+      if (postTitle == '') {
         errMsg += "Title can't be empty"
       }
-      if (postFrom == null) {
+      if (postFrom == '') {
         if (errMsg == "") {
           errMsg += "From can't be empty"
         }
@@ -33,7 +40,7 @@ const CreatePost = () => {
           errMsg += ", From can't be empty"
         }
       }
-      if (postTo == null) {
+      if (postTo == '') {
         if (errMsg == "") {
           errMsg += "To can't be empty"
         }
@@ -73,6 +80,7 @@ const CreatePost = () => {
           errMsg += ", and From is too long"
         }
       }
+      alert(errMsg)
       return
     }
     else {

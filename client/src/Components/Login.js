@@ -4,15 +4,21 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
-function Login(props) {
+/**
+ * Returns the Login page
+ */
+function Login() {
   localStorage.clear()
 
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-
+  /**
+   * Posts to the database and checks to see if such a user exists then checks the password to see if it is correct. Throws alerts if the login info is incorrect
+   *
+   * @param {event} event the event to preventDefault()
+   */
   async function checkLoginInfo(event) {
     event.preventDefault()
 

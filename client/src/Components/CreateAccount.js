@@ -4,7 +4,11 @@ import "./CreateAccount.css";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-function CreateAccount(props) {
+/**
+ * Returns the Create Account page
+ *
+ */
+function CreateAccount() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -12,14 +16,13 @@ function CreateAccount(props) {
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
 
-    /*function onEmail(e){
-        const element = document.getElementById("email")
-        element.style.color = 'red'
-        setEmail(e)
-        return
-    }*/
 
 
+    /**
+     * Checks that all inputs match the required criteria and checks if the email is already in use then posts the new user to the database and reroutes the user to the login page
+     *
+     * @param {event} event the event to preventDefault()
+     */
     async function checkForm(event) {
         event.preventDefault()
         const domain = email.substring(email.indexOf("@") + 1)
@@ -82,43 +85,43 @@ function CreateAccount(props) {
         }
         else {
             const response = await axios.post("http://localhost:8800/login", {
-            username: username,
+                username: username,
             }).then(response => {
-            console.log(response.status)
-            console.log(response.data)
-            return response.data
+                console.log(response.status)
+                console.log(response.data)
+                return response.data
             }).catch(error => {
-            if (error.status !== 200){
-                return null
-            }
+                if (error.status !== 200) {
+                    return null
+                }
             });
             console.log(response)
-            
+
             const emailResponse = await axios.post("http://localhost:8800/checkEmail", {
-            email: email,
+                email: email,
             }).then(response => {
-            console.log(response.status)
-            console.log(response.data)
-            return response.data
+                console.log(response.status)
+                console.log(response.data)
+                return response.data
             }).catch(error => {
-            if (error.status !== 200){
-                return null
-            }
+                if (error.status !== 200) {
+                    return null
+                }
             });
             console.log(emailResponse)
-            
-            if(response.length != 0 || emailResponse.length != 0){
-                if(emailResponse != 0){
+
+            if (response.length != 0 || emailResponse.length != 0) {
+                if (emailResponse != 0) {
                     alert("Email already in use.")
                     element1.style.color = 'red'
                     return
                 }
-                else{
+                else {
                     alert("Username already in use.")
                     element5.style.color = 'red'
                     return
                 }
-                
+
             }
 
 
@@ -137,7 +140,7 @@ function CreateAccount(props) {
             });
             window.location.href = "/"
             return
-            
+
         }
     }
 
@@ -178,20 +181,7 @@ function CreateAccount(props) {
                     <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password" onInput={e => setConfirm(e.target.value)}></input>
                     <div className="input-underline"></div>
                 </div>
-                {/* <div className="form-group">
-                    <label htmlFor="pfp">Upload a Profile Picture:</label>
-                    <div className="custom-pfp-wrapper">
-                        <input type="file" className="custom-pfp" name="pfp" />
-                        <label htmlFor="pfp" className="custom-pfp-label">
-                        </label>
-                    </div>
 
-                </div> */}
-
-                {/* <div className="form-group">
-                    <label htmlFor="bio">Enter a bio if you'd like!</label>
-                    <textarea id="bio" name="bio"></textarea>
-                </div> */}
                 <button type="submit" className="ca-btn" data-testid="create-button" onClick={checkForm}>Create Your Account</button>
             </form>
             <div className="links">

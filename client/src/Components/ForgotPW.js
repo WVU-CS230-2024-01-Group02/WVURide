@@ -33,33 +33,35 @@ const ForgotPW = () => {
     };
 
 
-        return (
-            <div className='fp-container'>
-                <div className="fp-function">
-                    <h2 className='forgot'>Reset Password</h2>
-                    <div className="fp-underline"></div>
-                    <p className='fp-desc'>Enter your email and your new password in order to reset your current password</p>
-                    <form className='FP-form'>
+    const ForgotPW = () => {
 
-                        <div className='form-group'>
-                            <label htmlFor='email'>
-                                <input type="email" id="email" name="email" required="required" placeholder="Mix Email" onInput={e => setEmail(e.target.value)} />
-                                <div className="input-underline" />
-                            </label>
-                        </div>
+    return (
+        <div className='fp-container'>
+            <div className="fp-function">
+                <h2 className='forgot'>Reset Password</h2>
+                <div className="fp-underline"></div>
+                <p className='fp-desc'>Enter your email and your new password in order to reset your current password</p>
+                <form className='FP-form'>
 
-                        <div className="form-group">
-                            <label htmlFor="password"></label>
-                            <input type="password" id="password" name="password" required="required" placeholder="Password" onInput={e => setPassword(e.target.value)}></input>
-                            <div className="input-underline"></div>
-                        </div>
+                    <div className='form-group'>
+                        <label htmlFor='email'>
+                            <input type="email" id="email" name="email" required="required" placeholder="Mix Email" onInput={e => setEmail(e.target.value)} />
+                            <div className="input-underline" />
+                        </label>
+                    </div>
 
-                        <div className="form-group">
-                            <label htmlFor="confirm"></label>
-                            <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password" onInput={e => setConfirm(e.target.value)}></input>
-                            <div className="input-underline"></div>
-                        </div>
-                        <button type="submit" className="ca-btn" onClick={changePass}>Reset your password</button>
+                    <div className="form-group">
+                        <label htmlFor="password"></label>
+                        <input type="password" id="password" name="password" required="required" placeholder="Password" onInput={e => setPassword(e.target.value)}></input>
+                        <div className="input-underline"></div>
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="confirm"></label>
+                        <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password" onInput={e => setConfirm(e.target.value)}></input>
+                        <div className="input-underline"></div>
+                    </div>
+                    <button type="submit" className="ca-btn" onClick={changePass}>Reset your password</button>
 
                     </form>
                     <div className="links">
@@ -83,4 +85,5 @@ const ForgotPW = () => {
             </div>
         )
     }
+}
 export default ForgotPW;

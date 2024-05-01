@@ -2,9 +2,13 @@ import React from "react";
 import { useState } from "react";
 import "./CreateAccount.css";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
+/**
+ * Returns the Create Account page
+ *
+ */
 function CreateAccount() {
-
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -13,7 +17,13 @@ function CreateAccount() {
     const [username, setUsername] = useState('');
 
 
-    function checkForm(event) {
+
+    /**
+     * Checks that all inputs match the required criteria and checks if the email is already in use then posts the new user to the database and reroutes the user to the login page
+     *
+     * @param {event} event the event to preventDefault()
+     */
+    async function checkForm(event) {
         event.preventDefault()
         const domain = email.substring(email.indexOf("@") + 1)
         const targetDomain = "mix.wvu.edu"
@@ -22,16 +32,17 @@ function CreateAccount() {
         const element3 = document.getElementById("confirm")
         const element4 = document.getElementById("name")
         const element5 = document.getElementById("username")
-        if (domain !== targetDomain || email == null || confirm == null || password == null || confirm !== password || name == null || username == null) {
+        if (domain !== targetDomain || email == "" || confirm == "" || password == "" || confirm !== password || name == "" || username == "") {
             var errorMsg = ""
-            if (domain !== targetDomain) {
+            if (domain !== targetDomain || email == "") {
                 element1.style.color = 'red'
+                console.log("should be red")
                 errorMsg += "Invalid email"
             }
             else {
                 element1.style.color = 'black'
             }
-            if (confirm !== password || confirm == null || password == null) {
+            if (confirm !== password || confirm == "" || password == "") {
                 element2.style.color = 'red'
                 element3.style.color = 'red'
                 if (errorMsg !== "") {
@@ -43,9 +54,9 @@ function CreateAccount() {
             }
             else {
                 element2.style.color = 'black'
-                element1.style.color = 'black'
+                element3.style.color = 'black'
             }
-            if (name == null) {
+            if (name == "") {
                 element4.style.color = 'red'
                 if (errorMsg !== "") {
                     errorMsg += ", name"
@@ -57,7 +68,7 @@ function CreateAccount() {
             else {
                 element4.style.color = 'black'
             }
-            if (username == null) {
+            if (username == "") {
                 element5.style.color = 'red'
                 if (errorMsg !== "") {
                     errorMsg += ", username"
@@ -73,14 +84,63 @@ function CreateAccount() {
             return
         }
         else {
+            const response = await axios.post("http://localhost:8800/login", {
+                username: username,
+            }).then(response => {
+                console.log(response.status)
+                console.log(response.data)
+                return response.data
+            }).catch(error => {
+                if (error.status !== 200) {
+                    return null
+                }
+            });
+            console.log(response)
+
+            const emailResponse = await axios.post("http://localhost:8800/checkEmail", {
+                email: email,
+            }).then(response => {
+                console.log(response.status)
+                console.log(response.data)
+                return response.data
+            }).catch(error => {
+                if (error.status !== 200) {
+                    return null
+                }
+            });
+            console.log(emailResponse)
+
+            if (response.length != 0 || emailResponse.length != 0) {
+                if (emailResponse != 0) {
+                    alert("Email already in use.")
+                    element1.style.color = 'red'
+                    return
+                }
+                else {
+                    alert("Username already in use.")
+                    element5.style.color = 'red'
+                    return
+                }
+
+            }
+
+
             element1.style.color = 'black'
             element2.style.color = 'black'
             element3.style.color = 'black'
             element4.style.color = 'black'
             element5.style.color = 'black'
-            document.getElementById('CA-Form').submit()
-            window.location.href = "/home"
+            const sendResponse = await axios.post("http://localhost:8800/users", {
+                email: email,
+                password: password,
+                fullName: name,
+                username: username,
+            }).then(response => {
+                return response;
+            });
+            window.location.href = "/"
             return
+
         }
     }
 
@@ -121,21 +181,8 @@ function CreateAccount() {
                     <input type="password" id="confirm" name="confirm" required="required" placeholder="Confirm your password" onInput={e => setConfirm(e.target.value)}></input>
                     <div className="input-underline"></div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="pfp">Upload a Profile Picture:</label>
-                    <div className="custom-pfp-wrapper">
-                        <input type="file" className="custom-pfp" name="pfp" />
-                        <label htmlFor="pfp" className="custom-pfp-label">
-                        </label>
-                    </div>
 
-                </div>
-
-                {/* <div className="form-group">
-                    <label htmlFor="bio">Enter a bio if you'd like!</label>
-                    <textarea id="bio" name="bio"></textarea>
-                </div> */}
-                <button type="submit" className="ca-btn" onClick={checkForm}>Create Your Account</button>
+                <button type="submit" className="ca-btn" data-testid="create-button" onClick={checkForm}>Create Your Account</button>
             </form>
             <div className="links">
                 <span><Link to="/"><a href="/login">Go back to login.</a></Link></span>

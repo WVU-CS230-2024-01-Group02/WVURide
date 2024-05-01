@@ -1,9 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 
 body {
+        /* Added this for making sure the map design stays fixed */
     overflow: hidden;
-    /* Added this for making sure the map design stays fixed */
-    color: white;
 }
 
 .login-container {
@@ -15,9 +14,8 @@ body {
     left: 50%;
     align-items: center;
     right: 0;
-    transform: translateX(50%);
+    transform: translate(50%, -50%);
     top: 50%;
-    transform: translateY(-50%);
     z-index: 1000;
 }
 
@@ -105,6 +103,7 @@ input[type="password"] {
     color: #007bff;
     text-decoration: none;
 }
+
 
 .links a:hover {
     text-decoration: underline;

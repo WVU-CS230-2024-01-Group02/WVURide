@@ -2,42 +2,57 @@ import React from "react";
 import "./Login.css";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
+/**
+ * Returns the Login page
+ */
 function Login() {
+  localStorage.clear()
+
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  var realUsername = 'GET THIS FROM DATABASE'
-  var realPassword = 'GET THIS FROM DATABASE TOO'
 
-  function checkLoginInfo(event) {
+  /**
+   * Posts to the database and checks to see if such a user exists then checks the password to see if it is correct. Throws alerts if the login info is incorrect
+   *
+   * @param {event} event the event to preventDefault()
+   */
+  async function checkLoginInfo(event) {
     event.preventDefault()
+
     const usernameElement = document.getElementById('username')
     const passwordElement = document.getElementById('password')
     const form = document.getElementById('L-form')
 
-    if (username !== realUsername || password !== realPassword) {
-      if (username !== realUsername) {
-        usernameElement.style.color = 'red'
+    const response = await axios.post("http://localhost:8800/login", {
+      username: username,
+      password: password,
+    }).then(response => {
+      console.log(response.status)
+      console.log(response.data)
+      return response.data
+    }).catch(error => {
+      if (error.status !== 200) {
+        return null
       }
-      else {
-        usernameElement.style.color = 'black'
-      }
-      if (password !== realPassword) {
-        passwordElement.style.color = 'red'
-      }
-      else {
-        passwordElement.style.color = 'black'
-      }
+    });
+    console.log(response)
+
+    if (response == null || response.length == 0) {
+      passwordElement.style.color = 'red'
+      usernameElement.style.color = 'red'
       alert("Invalid username or password")
+      console.log("null response")
       return
     }
-    else {
-      passwordElement.style.color = 'black'
-      usernameElement.style.color = 'black'
-      window.location.href = "/home"
-      return
-    }
+    localStorage.setItem('user', JSON.stringify(response[0]))
+    passwordElement.style.color = 'black'
+    usernameElement.style.color = 'black'
+    window.location.href = "/home"
+    return
+
   }
 
 
@@ -61,11 +76,11 @@ function Login() {
               <div className="input-underline"></div>
             </label>
           </div>
-          <button type="submit" className="login-btn" onClick={checkLoginInfo}>Login</button>
+          <button type="submit" className="login-btn" data-testid="login-button" onClick={checkLoginInfo}>Login</button>
         </form>
         <div className="links">
           <span>Don't have an account?<br></br><Link to="/createaccount"><a href="/createaccount">Create Account</a></Link></span>
-          <span><a href="/forgot-password">Forgot Password?</a></span>
+          <span><Link to="/forgot-password"><a href="/forgot-password">Forgot Password?</a></Link></span>
         </div>
       </div>
       <div className="map-container-lg">

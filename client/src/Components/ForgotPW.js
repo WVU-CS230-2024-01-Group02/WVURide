@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 
 
 const ForgotPW = () => {
-    if (localStorage.getItem('user') === null) {
-        window.location.href = '/'
-    }
+
     return (
         <div className='fp-container'>
             <div className="fp-function">

@@ -4,6 +4,11 @@ import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+/**
+ * Returns a post HTML object
+ *
+ * @param {post} post the post to be made into an HTML object to display on the home page
+ */
 function Post(post) {
     console.log(post)
     return (
@@ -25,11 +30,11 @@ function Post(post) {
     );
 }
 
-//async function getPosts(){
-//    return await 
-//}
 
 
+/**
+ * Returns the Home page
+ */
 function HomePage() {
     if (localStorage.getItem('user') === null) {
         window.location.href = '/'
@@ -37,6 +42,9 @@ function HomePage() {
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 
+    /**
+     * Returns the response from a get request for a list of posts
+     */
     const fetchPosts = useCallback(async () => {
         const response = await axios.get("http://localhost:8800/retrieve5Posts").then(response => {
             return response.data
@@ -48,6 +56,9 @@ function HomePage() {
         setPosts({ loaded: true, data: response })
     }, [setPosts])
 
+    /**
+     * Calls fetchPosts if the useState for posts is not currently loaded with data
+     */
     useEffect(() => {
         if (!posts.loaded) {
             fetchPosts()

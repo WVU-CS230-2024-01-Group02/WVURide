@@ -4,6 +4,11 @@ import "./SearchPosts.css"
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+/**
+ * Returns a post HTML object
+ *
+ * @param {post} post the post to be made into an HTML object to display on the home page
+ */
 function Post(post) {
     return (
         <li className="post-item">
@@ -24,36 +29,9 @@ function Post(post) {
     );
 }
 
-
-
-/*function SearchForPosts(searchTo, searchFrom, searchGas) {
-
-    const [posts, setPosts] = useState({ loaded: false, data: [] })
-    const fetchPosts = useCallback(async () => {
-        const response = await axios.get("http://localhost:8800/searchPosts", {
-            to: searchTo,
-            from: searchFrom,
-            gas: searchGas
-        }).then(response => {
-            return response.data
-        }).catch(error => {
-            if (error.status !== 200) {
-                return null
-            }
-        });
-        setPosts({ loaded: true, data: response })
-    }, [setPosts])
-
-
-    useEffect(() => {
-        if (!posts.loaded) {
-            fetchPosts()
-        }
-    }, [fetchPosts, posts.loaded])
-
-    return posts
-}*/
-
+/**
+ * Returns the Search Posts page
+ */
 function SearchPosts() {
     if (localStorage.getItem('user') === null) {
         window.location.href = '/'
@@ -66,6 +44,11 @@ function SearchPosts() {
     const [searchGas, setGas] = useState(-1)
     console.log(searchGas)
 
+    /**
+     * Returns x raised to the n-th power.
+     *
+     * @param {event} e to preventDefault()
+     */
     function inputGas(e) {
         if (searchGas === -1 || searchGas === 0) {
             setGas(1)
@@ -74,6 +57,11 @@ function SearchPosts() {
             setGas(-1)
         }
     }
+    /**
+     * Returns x raised to the n-th power.
+     *
+     * @param {event} e to preventDefault()
+     */
     function inputNoGas(e) {
         if (searchGas === -1 || searchGas === 1) {
             setGas(0)
@@ -86,10 +74,10 @@ function SearchPosts() {
 
     const [posts, setPosts] = useState({ loaded: false, data: [] })
 
+    /**
+     * Returns the response from a get request for a list of posts
+     */
     const fetchPosts = useCallback(async () => {
-        console.log(searchTo)
-        console.log(searchFrom)
-        console.log(searchGas)
         const response = await axios.post("http://localhost:8800/searchPosts", {
             to: searchTo,
             from: searchFrom,
@@ -105,7 +93,9 @@ function SearchPosts() {
         setPosts({ loaded: true, data: response })
     }, [setPosts, searchTo, searchFrom, searchGas])
 
-
+    /**
+     * Calls fetchPosts if the useState for posts is not currently loaded with data
+     */
     useEffect(() => {
         if (!posts.loaded) {
             fetchPosts()
